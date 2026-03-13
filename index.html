@@ -886,8 +886,27 @@
     .reveal.visible { opacity:1; transform:translateY(0); }
 
     /* ─── RESPONSIVE ─── */
+    /* ─── LANG TOGGLE GLOBE ─── */
+    .lang-globe-btn {
+      display: flex; align-items: center; gap: 6px;
+      background: var(--cream);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 6px 14px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-soft);
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .lang-globe-btn:hover { border-color: var(--blue-pale); background: white; color: var(--blue-mid); }
+    .lang-globe-btn[data-active-lang="jp"] { background: var(--blue-deep); color: white; border-color: var(--blue-deep); }
+
     @media (max-width:768px) {
-      nav { padding:0 20px; }
+      nav { padding:0 14px; }
       .nav-links { display:none; }
       .nav-jp { display:none; }
       .about-grid { grid-template-columns:1fr; gap:40px; }
@@ -914,15 +933,18 @@
   <nav>
     <a href="#" class="nav-brand">🌸 Sakura Slice Café</a>
     <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#emails">Letters</a></li>
-      <li><a href="#menu">Menu</a></li>
-      <li><a href="#mascot">Me3temed</a></li>
-      <li><a href="#about-me">Owner</a></li>
-      <li><a href="#guestbook">Guestbook</a></li>
-      <li><a href="#subscribe">Subscribe</a></li>
+      <li><a href="#about" data-en="About" data-jp="について">About</a></li>
+      <li><a href="#emails" data-en="Letters" data-jp="お手紙">Letters</a></li>
+      <li><a href="#menu" data-en="Menu" data-jp="メニュー">Menu</a></li>
+      <li><a href="#mascot" data-en="Me3temed" data-jp="メ3テムド">Me3temed</a></li>
+      <li><a href="#about-me" data-en="Owner" data-jp="オーナー">Owner</a></li>
+      <li><a href="#guestbook" data-en="Guestbook" data-jp="ゲストブック">Guestbook</a></li>
+      <li><a href="#subscribe" data-en="Subscribe" data-jp="登録する">Subscribe</a></li>
     </ul>
-    <span class="nav-jp">さくらスライス喫茶</span>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <span class="nav-jp">さくらスライス喫茶</span>
+      <button class="lang-globe-btn" onclick="SAKURA_LANG.toggle()" data-active-lang="en" title="日本語に切り替える">🌐 <span id="nav-lang-label">日本語</span></button>
+    </div>
   </nav>
 
   <!-- HERO -->
@@ -946,15 +968,12 @@
       <span class="petal">❄️</span>
     </div>
     <div class="hero-content">
-      <span class="hero-jp">ようこそ · welcome to our little corner</span>
+      <span class="hero-jp" data-en="ようこそ · welcome to our little corner" data-jp="ようこそ · 私たちの小さな隅へ">ようこそ · welcome to our little corner</span>
       <h1 class="hero-title">Sakura Slice<br><em>Café</em></h1>
-      <p class="hero-sub">
-        A cozy Japanese-inspired sanctuary for slow mornings,<br>
-        quiet evenings, and gentle words sent with love.
-      </p>
+      <p class="hero-sub" data-en="A cozy Japanese-inspired sanctuary for slow mornings,<br>quiet evenings, and gentle words sent with love." data-jp="ゆっくりした朝、静かな夕べ、愛を込めて送られた優しい言葉のための、居心地の良い日本風の隠れ家。">A cozy Japanese-inspired sanctuary for slow mornings,<br>quiet evenings, and gentle words sent with love.</p>
       <div class="hero-ctas">
-        <a href="letters.html" class="btn-primary">📬 Today's Letter</a>
-        <a href="menu.html" class="btn-ghost">☕ Our Menu</a>
+        <a href="letters.html" class="btn-primary" data-en="📬 Today's Letter" data-jp="📬 今日のお手紙">📬 Today's Letter</a>
+        <a href="menu.html" class="btn-ghost" data-en="☕ Our Menu" data-jp="☕ メニュー">☕ Our Menu</a>
       </div>
     </div>
     <div class="hero-scroll">
@@ -973,8 +992,8 @@
           <div class="about-float-tag tag-2">❄️ Quiet evenings</div>
         </div>
         <div class="about-text reveal">
-          <span class="section-eyebrow">Our Story · 私たちの物語</span>
-          <h2 class="section-title">A café made of<br><em>warmth &amp; words</em></h2>
+          <span class="section-eyebrow" data-en="Our Story · 私たちの物語" data-jp="私たちの物語">Our Story · 私たちの物語</span>
+          <h2 class="section-title" data-en="A café made of<br><em>warmth &amp; words</em>" data-jp="温かさと言葉で<br>作られた<em>カフェ</em>">A café made of<br><em>warmth &amp; words</em></h2>
           <p class="section-sub" id="about-body-en">
             Sakura Slice Café isn't just a place — it's a feeling.
             Born from a love of cozy Japanese aesthetics, slow mornings,
@@ -1045,8 +1064,8 @@
   <section id="emails">
     <div class="container">
       <div class="emails-intro reveal">
-        <span class="section-eyebrow">Our Letters · お手紙</span>
-        <h2 class="section-title">Morning &amp; <em>Evening Letters</em></h2>
+        <span class="section-eyebrow" data-en="Our Letters · お手紙" data-jp="お手紙">Our Letters · お手紙</span>
+        <h2 class="section-title" data-en="Morning &amp; <em>Evening Letters</em>" data-jp="朝と<em>夜のお手紙</em>">Morning &amp; <em>Evening Letters</em></h2>
         <p class="section-sub" style="margin:0 auto;">
           Each day, we send two letters — one to greet the morning, one to close the night.
           Reflections, recipes, affirmations, and tiny stories.
@@ -1103,7 +1122,7 @@
 
   <!-- AFFIRMATION BAND -->
   <div class="affirmation-band">
-    <p>"Rest is not a pause from life — it is one of its most honest expressions."</p>
+    <p data-en="&ldquo;Rest is not a pause from life — it is one of its most honest expressions.&rdquo;" data-jp="「休息は人生の一時停止ではない — それは最も正直な表現のひとつだ。」">"Rest is not a pause from life — it is one of its most honest expressions."</p>
     <span>— Me3temed · Sakura Slice Café ❄️</span>
   </div>
 
@@ -1112,8 +1131,8 @@
     <div class="container">
       <div class="menu-intro reveal">
         <div>
-          <span class="section-eyebrow">Drink Menu · ドリンクメニュー</span>
-          <h2 class="section-title">Seasonal <em>Warm Sips</em></h2>
+          <span class="section-eyebrow" data-en="Drink Menu · ドリンクメニュー" data-jp="ドリンクメニュー">Drink Menu · ドリンクメニュー</span>
+          <h2 class="section-title" data-en="Seasonal <em>Warm Sips</em>" data-jp="季節の<em>温かい一杯</em>">Seasonal <em>Warm Sips</em></h2>
         </div>
         <div>
           <p class="section-sub" style="max-width:340px;">
@@ -1283,13 +1302,10 @@
     <div class="container">
       <div class="journal-inner reveal">
         <span class="journal-deco">📓</span>
-        <span class="section-eyebrow" style="display:block; text-align:center;">Morning Journal · 日記</span>
-        <h2 class="section-title" style="text-align:center;">Your space to <em>breathe &amp; write</em></h2>
-        <p class="journal-quote">
-          "The page doesn't need you to be eloquent.<br>
-          It only needs you to be honest."
-        </p>
-        <a href="https://docs.google.com/document/d/1rLakqh3VjtNcJrs0s2436LTrJhRiGDMK/edit?usp=sharing" class="btn-primary">📓 Open the Journal</a>
+        <span class="section-eyebrow" style="display:block; text-align:center;" data-en="Morning Journal · 日記" data-jp="日記">Morning Journal · 日記</span>
+        <h2 class="section-title" style="text-align:center;" data-en="Your space to <em>breathe &amp; write</em>" data-jp="深呼吸して<em>書くための場所</em>">Your space to <em>breathe &amp; write</em></h2>
+        <p class="journal-quote" data-en="&ldquo;The page doesn't need you to be eloquent.<br>It only needs you to be honest.&rdquo;" data-jp="「ページはあなたが雄弁である必要はない。<br>ただ正直であればいい。」">"The page doesn't need you to be eloquent.<br>It only needs you to be honest."</p>
+        <a href="https://docs.google.com/document/d/1rLakqh3VjtNcJrs0s2436LTrJhRiGDMK/edit?usp=sharing" class="btn-primary" data-en="📓 Open the Journal" data-jp="📓 日記を開く">📓 Open the Journal</a>
       </div>
     </div>
   </section>
@@ -1299,15 +1315,77 @@
     <div class="container">
       <div class="mascot-card reveal">
         <div class="mascot-img-wrap">
-          <img src="https://drive.google.com/uc?export=view&id=1SkKI0qiRe1yeGLPJCFkSVHRKSnCbz8q6" alt="Me3temed the café mascot">
+          <svg width="140" height="140" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg" style="display:block;border-radius:50%;border:3px solid rgba(100,160,220,0.4);box-shadow:0 8px 30px rgba(80,130,180,0.2);">
+            <!-- Background circle -->
+            <circle cx="70" cy="70" r="70" fill="#e4f0fa"/>
+            <!-- Soft glow -->
+            <circle cx="70" cy="62" r="38" fill="#d0e8f6" opacity="0.6"/>
+            <!-- Body -->
+            <ellipse cx="70" cy="90" rx="30" ry="28" fill="#5a8abf"/>
+            <!-- Belly -->
+            <ellipse cx="70" cy="94" rx="18" ry="19" fill="#eef6ff"/>
+            <!-- Belly stripes -->
+            <ellipse cx="70" cy="91" rx="11" ry="4" fill="#d0e8f4" opacity="0.6"/>
+            <ellipse cx="70" cy="98" rx="10" ry="3.5" fill="#d0e8f4" opacity="0.5"/>
+            <ellipse cx="70" cy="104" rx="8" ry="3" fill="#d0e8f4" opacity="0.4"/>
+            <!-- Wings -->
+            <ellipse cx="42" cy="92" rx="14" ry="20" fill="#4a7aaa" transform="rotate(-10 42 92)"/>
+            <ellipse cx="98" cy="92" rx="14" ry="20" fill="#4a7aaa" transform="rotate(10 98 92)"/>
+            <!-- Wing feather details -->
+            <ellipse cx="41" cy="94" rx="8" ry="14" fill="#3a6a9a" opacity="0.5" transform="rotate(-10 41 94)"/>
+            <ellipse cx="99" cy="94" rx="8" ry="14" fill="#3a6a9a" opacity="0.5" transform="rotate(10 99 94)"/>
+            <!-- Head -->
+            <circle cx="70" cy="58" r="26" fill="#5a8abf"/>
+            <!-- Ear tufts -->
+            <polygon points="52,36 47,20 58,32" fill="#4a7aaa"/>
+            <polygon points="88,36 93,20 82,32" fill="#4a7aaa"/>
+            <polygon points="52,36 47,20 55,34" fill="#6a9acc" opacity="0.5"/>
+            <polygon points="88,36 93,20 85,34" fill="#6a9acc" opacity="0.5"/>
+            <!-- Face disc -->
+            <ellipse cx="70" cy="60" rx="20" ry="18" fill="#d8eef8"/>
+            <!-- Left eye -->
+            <circle cx="61" cy="57" r="9" fill="white"/>
+            <circle cx="61" cy="57" r="6.5" fill="#1a2a3a"/>
+            <circle cx="61" cy="57" r="3.5" fill="#2a4a70"/>
+            <circle cx="63" cy="55" r="1.8" fill="white"/>
+            <circle cx="59.5" cy="58.5" r="0.8" fill="white" opacity="0.6"/>
+            <!-- Right eye -->
+            <circle cx="79" cy="57" r="9" fill="white"/>
+            <circle cx="79" cy="57" r="6.5" fill="#1a2a3a"/>
+            <circle cx="79" cy="57" r="3.5" fill="#2a4a70"/>
+            <circle cx="81" cy="55" r="1.8" fill="white"/>
+            <circle cx="77.5" cy="58.5" r="0.8" fill="white" opacity="0.6"/>
+            <!-- Eye rings -->
+            <circle cx="61" cy="57" r="9" fill="none" stroke="#a8ccec" stroke-width="1.2"/>
+            <circle cx="79" cy="57" r="9" fill="none" stroke="#a8ccec" stroke-width="1.2"/>
+            <!-- Beak -->
+            <polygon points="70,65 65.5,70 74.5,70" fill="#f0c060"/>
+            <line x1="65.5" y1="67.5" x2="74.5" y2="67.5" stroke="#e0a840" stroke-width="0.8"/>
+            <!-- Blush -->
+            <ellipse cx="55" cy="64" rx="5" ry="3" fill="#f0a0b0" opacity="0.35"/>
+            <ellipse cx="85" cy="64" rx="5" ry="3" fill="#f0a0b0" opacity="0.35"/>
+            <!-- Feet -->
+            <g fill="#f0c060">
+              <ellipse cx="59" cy="117" rx="5" ry="3" transform="rotate(-15 59 117)"/>
+              <rect x="54" y="114" width="3.5" height="7" rx="1.5" transform="rotate(-15 54 114)"/>
+              <rect x="57.5" y="113" width="3.5" height="8" rx="1.5" transform="rotate(-5 57.5 113)"/>
+              <rect x="61" y="114" width="3.5" height="7" rx="1.5" transform="rotate(8 61 114)"/>
+              <ellipse cx="81" cy="117" rx="5" ry="3" transform="rotate(15 81 117)"/>
+              <rect x="76" y="113" width="3.5" height="7" rx="1.5" transform="rotate(-8 76 113)"/>
+              <rect x="79.5" y="112" width="3.5" height="8" rx="1.5" transform="rotate(5 79.5 112)"/>
+              <rect x="83" y="113" width="3.5" height="7" rx="1.5" transform="rotate(15 83 113)"/>
+            </g>
+            <!-- Tiny snowflake detail -->
+            <text x="70" y="133" text-anchor="middle" font-size="10" opacity="0.5">❄️</text>
+          </svg>
           <div class="mascot-ring"></div>
         </div>
         <div>
-          <div class="mascot-intro">Meet Our Mascot · マスコット</div>
+          <div class="mascot-intro" data-en="Meet Our Mascot · マスコット" data-jp="マスコットに会おう">Meet Our Mascot · マスコット</div>
           <div class="mascot-name">Me3temed ❄️</div>
           <div class="mascot-quote">
-            "Slow mornings grow the strongest roots.<br>
-            Don't rush the part of the day that belongs only to you."
+            <span data-en="&ldquo;Slow mornings grow the strongest roots.<br>Don't rush the part of the day that belongs only to you.&rdquo;" data-jp="「ゆっくりした朝が最も強い根を育てる。<br>あなただけの時間を急がないで。」">"Slow mornings grow the strongest roots.<br>
+            Don't rush the part of the day that belongs only to you."</span>
           </div>
           <p style="margin-top:18px; font-size:14px; color:var(--text-muted); line-height:1.7;">
             Me3temed appears in every letter — a gentle guide, a soft voice,
@@ -1323,14 +1401,16 @@
     <div class="container">
       <div class="aboutme-grid">
         <div class="aboutme-photo-wrap reveal">
-          <div class="aboutme-photo-bg">👤</div>
-          <div class="aboutme-float aboutme-float-1">🌸 Café Owner</div>
-          <div class="aboutme-float aboutme-float-2">❄️ Letter Writer</div>
+          <div class="aboutme-photo-bg" style="font-size:80px; display:flex; align-items:center; justify-content:center;">
+            🧑‍☕
+          </div>
+          <div class="aboutme-float aboutme-float-1" data-en="🌸 Café Owner" data-jp="🌸 カフェオーナー">🌸 Café Owner</div>
+          <div class="aboutme-float aboutme-float-2" data-en="❄️ Letter Writer" data-jp="❄️ 手紙を書く人">❄️ Letter Writer</div>
         </div>
         <div class="reveal">
-          <span class="section-eyebrow">Meet the Owner · オーナーについて</span>
+          <span class="section-eyebrow" data-en="Meet the Owner · オーナーについて" data-jp="オーナーについて">Meet the Owner · オーナーについて</span>
           <div class="aboutme-name">Ahmed El Bourgy</div>
-          <div class="aboutme-role">Founder &amp; Owner · Sakura Slice Café</div>
+          <div class="aboutme-role" data-en="Founder &amp; Owner · Sakura Slice Café" data-jp="創設者 &amp; オーナー · さくらスライスカフェ">Founder &amp; Owner · Sakura Slice Café</div>
           <p class="aboutme-text">
             Sakura Slice Café was born from a simple belief — that everyone deserves
             to start and end their day with something warm and gentle.
@@ -1358,8 +1438,8 @@
   <section id="guestbook">
     <div class="container">
       <div class="guestbook-intro reveal">
-        <span class="section-eyebrow">Guestbook · ゲストブック</span>
-        <h2 class="section-title">Leave a <em>soft note</em></h2>
+        <span class="section-eyebrow" data-en="Guestbook · ゲストブック" data-jp="ゲストブック">Guestbook · ゲストブック</span>
+        <h2 class="section-title" data-en="Leave a <em>soft note</em>" data-jp="<em>優しいメモ</em>を残して">Leave a <em>soft note</em></h2>
         <p class="section-sub" style="margin:0 auto; text-align:center;">
           A word for the café, for Ahmed, for Me3temed, or for whoever reads next.
           Soft words in cold seasons travel the farthest. 🤍
@@ -1372,23 +1452,11 @@
         </div>
         <textarea class="gb-textarea" id="gb-msg" placeholder="Leave a gentle note... what does this café mean to you?"></textarea>
         <button class="btn-primary" onclick="addGuestEntry()">🌸 Leave My Note</button>
+        <p style="margin-top:12px; font-size:12.5px; color:var(--text-muted); font-family:'Cormorant Garamond',serif; font-style:italic;">Your note will open in Gmail so it goes straight to Ahmed 💌</p>
       </div>
       <div class="guestbook-entries" id="guestbook-entries">
-        <div class="gb-entry">
-          <div class="gb-entry-name">Nour 🌙</div>
-          <div class="gb-entry-msg">"The evening letter made me cry in the best way. I didn't know a stranger could say exactly what I needed to hear."</div>
-        </div>
-        <div class="gb-entry">
-          <div class="gb-entry-name">Yuki ❄️</div>
-          <div class="gb-entry-msg">"Made the Cardamom Maple Milk and sat by the window in silence for twenty minutes. The first twenty quiet minutes I've had all week."</div>
-        </div>
-        <div class="gb-entry">
-          <div class="gb-entry-name">Rania 🌸</div>
-          <div class="gb-entry-msg">"Me3temed's quote about slow mornings is now on a sticky note on my mirror. Thank you for this little world you made."</div>
-        </div>
-        <div class="gb-entry">
-          <div class="gb-entry-name">Kaito ☕</div>
-          <div class="gb-entry-msg">"I look forward to the morning letter before I even look at my phone. That says everything."</div>
+        <div style="grid-column:1/-1; text-align:center; padding:40px 24px; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px; color:var(--text-muted);" id="gb-empty">
+          No notes yet — be the first to leave one 🌸
         </div>
       </div>
     </div>
@@ -1398,17 +1466,17 @@
   <section id="subscribe">
     <div class="container">
       <div class="subscribe-inner reveal">
-        <span class="section-eyebrow">Stay Connected · つながり続ける</span>
-        <h2 class="section-title" style="text-align:center;">Receive your daily<br><em>letter with love</em></h2>
+        <span class="section-eyebrow" data-en="Stay Connected · つながり続ける" data-jp="つながり続ける">Stay Connected · つながり続ける</span>
+        <h2 class="section-title" style="text-align:center;" data-en="Receive your daily<br><em>letter with love</em>" data-jp="毎日届く<br><em>愛のお手紙を</em>">Receive your daily<br><em>letter with love</em></h2>
         <p class="section-sub" style="margin:0 auto 4px; text-align:center;">
           A morning letter at sunrise. An evening letter at dusk.
           Both arriving like a quiet knock — gentle, warm, just for you.
         </p>
         <div class="subscribe-form">
           <input type="email" class="subscribe-input" placeholder="your@email.com">
-          <button class="btn-primary" onclick="this.textContent='🌸 Subscribed!'">🌸 Subscribe</button>
+          <button class="btn-primary" onclick="this.textContent='🌸 登録完了!'" data-en="🌸 Subscribe" data-jp="🌸 登録する">🌸 Subscribe</button>
         </div>
-        <p class="subscribe-note">No noise, no ads — only softness. Unsubscribe any time. 🤍</p>
+        <p class="subscribe-note" data-en="No noise, no ads — only softness. Unsubscribe any time. 🤍" data-jp="雑音なし、広告なし — ただ優しさだけ。いつでも登録解除できます。🤍">No noise, no ads — only softness. Unsubscribe any time. 🤍</p>
       </div>
     </div>
   </section>
@@ -1418,11 +1486,11 @@
     <div class="footer-grid">
       <div>
         <div class="footer-brand">🌸 Sakura Slice Café</div>
-        <div class="footer-tagline">Slow sips, quiet thoughts<br>&amp; the grace of a gentle morning.</div>
+        <div class="footer-tagline" data-en="Slow sips, quiet thoughts<br>&amp; the grace of a gentle morning." data-jp="ゆっくりした一口、静かな想い<br>&amp; 穏やかな朝の恵み。">Slow sips, quiet thoughts<br>&amp; the grace of a gentle morning.</div>
         <div class="footer-icons">❄️ ☕ 🌸 🤍 🌙</div>
       </div>
       <div>
-        <div class="footer-col-title">Letters</div>
+        <div class="footer-col-title" data-en="Letters" data-jp="お手紙">Letters</div>
         <ul class="footer-links">
           <li><a href="letters.html#morning">Morning Letter ☀️</a></li>
           <li><a href="letters.html#evening">Evening Letter 🌙</a></li>
@@ -1431,7 +1499,7 @@
         </ul>
       </div>
       <div>
-        <div class="footer-col-title">Café</div>
+        <div class="footer-col-title" data-en="Café" data-jp="カフェ">Café</div>
         <ul class="footer-links">
           <li><a href="#about">Our Story</a></li>
           <li><a href="menu.html">Drink Menu ☕</a></li>
@@ -1440,7 +1508,7 @@
         </ul>
       </div>
       <div>
-        <div class="footer-col-title">Connect</div>
+        <div class="footer-col-title" data-en="Connect" data-jp="つながる">Connect</div>
         <ul class="footer-links">
           <li><a href="#about-me">Meet Ahmed 🌸</a></li>
           <li><a href="#guestbook">Guestbook 🤍</a></li>
@@ -1449,7 +1517,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2026 Ahmed El Bourgy · Sakura Slice Café 🌸 · All rights reserved</span>
+      <span data-en="© 2026 Ahmed El Bourgy · Sakura Slice Café 🌸 · All rights reserved" data-jp="© 2026 アハメド・エル・ブルジ · さくらスライスカフェ 🌸 · 無断転載禁止">© 2026 Ahmed El Bourgy · Sakura Slice Café 🌸 · All rights reserved</span>
       <span class="footer-jp">心を込めて · made with all of the heart</span>
     </div>
   </footer>
@@ -1487,6 +1555,25 @@
       const emoji = document.getElementById('gb-emoji').value.trim() || '🌸';
       const msg = document.getElementById('gb-msg').value.trim();
       if (!name || !msg) { alert('Please fill in your name and message 🌸'); return; }
+
+      // Open Gmail with pre-filled content
+      const subject = encodeURIComponent('🌸 Sakura Slice Café — A Soft Note from ' + name + ' ' + emoji);
+      const body = encodeURIComponent(
+        'A guestbook note from Sakura Slice Café 🌸\n\n' +
+        '──────────────────────────\n' +
+        'From: ' + name + ' ' + emoji + '\n' +
+        '──────────────────────────\n\n' +
+        '"' + msg + '"\n\n' +
+        '──────────────────────────\n' +
+        'Soft words in cold seasons travel the farthest. 🤍\n' +
+        'Sent from sakuraslicecafe.com'
+      );
+      const gmailUrl = 'https://mail.google.com/mail/?view=cm&fs=1&to=yuto41999@gmail.com&su=' + subject + '&body=' + body;
+      window.open(gmailUrl, '_blank');
+
+      // Also show the note on the page
+      const empty = document.getElementById('gb-empty');
+      if (empty) empty.style.display = 'none';
       const entry = document.createElement('div');
       entry.className = 'gb-entry';
       entry.style.opacity = '0';
@@ -1501,5 +1588,35 @@
     }
   </script>
 
+
+  <!-- ─── Language System ─── -->
+  <script>
+    (function(){
+      const KEY='sakura_lang';
+      function getLang(){ return localStorage.getItem(KEY)||'en'; }
+      function applyLang(lang){
+        localStorage.setItem(KEY,lang);
+        document.querySelectorAll('[data-en]').forEach(el=>{
+          const t=lang==='jp'?el.getAttribute('data-jp'):el.getAttribute('data-en');
+          if(t!==null) el.innerHTML=t;
+        });
+        document.querySelectorAll('[data-ph-en]').forEach(el=>{
+          el.placeholder=lang==='jp'?el.getAttribute('data-ph-jp'):el.getAttribute('data-ph-en');
+        });
+        document.querySelectorAll('.lang-globe-btn').forEach(btn=>{
+          btn.setAttribute('data-active-lang',lang);
+        });
+        const lbl=document.getElementById('nav-lang-label');
+        if(lbl) lbl.textContent=lang==='jp'?'English':'日本語';
+      }
+      window.SAKURA_LANG={
+        toggle:function(){ applyLang(getLang()==='jp'?'en':'jp'); },
+        get:getLang,
+        apply:applyLang,
+        init:function(){ applyLang(getLang()); }
+      };
+      document.addEventListener('DOMContentLoaded',function(){ SAKURA_LANG.init(); });
+    })();
+  </script>
 </body>
 </html>
