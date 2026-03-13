@@ -206,25 +206,25 @@
 
   <nav>
     <a href="index.html" class="nav-brand">🌸 Sakura Slice Café</a>
-    <a href="index.html" class="nav-back">← Back to Café</a>
-    <span class="nav-jp">メニュー · お菓子</span>
+    <a href="index.html" class="nav-back" data-en="← Back to Café" data-jp="← カフェに戻る">← Back to Café</a>
+    <div style="display:flex;align-items:center;gap:10px;"><span class="nav-jp">メニュー · お菓子</span><button class="lang-globe-btn" onclick="SAKURA_LANG.toggle()" data-active-lang="en" title="日本語に切り替える" style="display:flex;align-items:center;gap:5px;background:rgba(244,248,252,0.9);border:1px solid #d0e4f4;border-radius:50px;padding:5px 12px;font-family:'Nunito',sans-serif;font-size:11px;font-weight:700;color:#5a7a9a;cursor:pointer;white-space:nowrap;">🌐 <span id="nav-lang-label">日本語</span></button></div>
   </nav>
 
   <div class="page-header">
-    <h1 class="page-title">Our <em>Menu</em></h1>
-    <p class="page-sub">Seasonal warm sips and Japanese-inspired sweets — made for slow, cozy days.</p>
+    <h1 class="page-title" data-en="Our <em>Menu</em>" data-jp="私たちの<em>メニュー</em>">Our <em>Menu</em></h1>
+    <p class="page-sub" data-en="Seasonal warm sips and Japanese-inspired sweets — made for slow, cozy days." data-jp="季節の温かい飲み物と日本風スイーツ — ゆっくりした居心地の良い日のために。">Seasonal warm sips and Japanese-inspired sweets — made for slow, cozy days.</p>
   </div>
 
   <div class="tab-bar">
-    <button class="tab-btn active" id="tab-drinks" onclick="switchTab('drinks')">☕ Drinks</button>
-    <button class="tab-btn" id="tab-desserts" onclick="switchTab('desserts')">🍡 Desserts</button>
+    <button class="tab-btn active" id="tab-drinks" onclick="switchTab('drinks')" data-en="☕ Drinks" data-jp="☕ ドリンク">☕ Drinks</button>
+    <button class="tab-btn" id="tab-desserts" onclick="switchTab('desserts')" data-en="🍡 Desserts" data-jp="🍡 デザート">🍡 Desserts</button>
   </div>
 
   <!-- ─── DRINKS ─── -->
   <div class="menu-section active" id="section-drinks">
     <div class="container">
-      <span class="section-eyebrow">Drink Menu · ドリンクメニュー</span>
-      <h2 class="section-title">Seasonal <em>Warm Sips</em></h2>
+      <span class="section-eyebrow" data-en="Drink Menu · ドリンクメニュー" data-jp="ドリンクメニュー">Drink Menu · ドリンクメニュー</span>
+      <h2 class="section-title" data-en="Seasonal <em>Warm Sips</em>" data-jp="季節の<em>温かい一杯</em>">Seasonal <em>Warm Sips</em></h2>
       <div class="drinks-grid">
 
         <div class="drink-card" onclick="toggleDrink(this)">
@@ -407,8 +407,8 @@
   <div class="menu-section" id="section-desserts">
     <div class="container">
       <div class="desserts-intro">
-        <span class="section-eyebrow">Dessert Menu · お菓子メニュー</span>
-        <h2 class="section-title">Japanese-Inspired <em>Sweets</em></h2>
+        <span class="section-eyebrow" data-en="Dessert Menu · お菓子メニュー" data-jp="お菓子メニュー">Dessert Menu · お菓子メニュー</span>
+        <h2 class="section-title" data-en="Japanese-Inspired <em>Sweets</em>" data-jp="日本風<em>スイーツ</em>">Japanese-Inspired <em>Sweets</em></h2>
         <p style="font-size:15px; color:var(--text-soft); line-height:1.8; max-width:520px;">
           Simple, thoughtful sweets that pair perfectly with your warm sip.
           Each one made to be eaten slowly, without apology.
@@ -507,7 +507,7 @@
       </div>
 
       <div class="seasonal-band" id="desserts">
-        <h2>"Every sweet is a small act of gentleness — towards yourself and whoever you share it with."</h2>
+        <h2 data-en="&ldquo;Every sweet is a small act of gentleness — towards yourself and whoever you share it with.&rdquo;" data-jp="「すべてのスイーツは、自分自身と分かち合う人への小さな優しさの行為だ。」">"Every sweet is a small act of gentleness — towards yourself and whoever you share it with."</h2>
         <span>— Ahmed El Bourgy · Sakura Slice Café 🌸</span>
       </div>
 
@@ -518,7 +518,7 @@
   <footer style="background:#131c28; border-top:1px solid #1e2e3e; padding:36px 40px; text-align:center;">
     <div style="font-family:'Nunito',sans-serif; font-weight:700; font-size:18px; color:#c8d8e8; margin-bottom:8px;">🌸 Sakura Slice Café</div>
     <div style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14px; color:#445a70; margin-bottom:16px;">Slow sips, quiet thoughts & the grace of a gentle morning.</div>
-    <div style="font-size:12px; color:#2a3a4a;">© 2026 Ahmed El Bourgy · Sakura Slice Café 🌸 · All rights reserved</div>
+    <div style="font-size:12px; color:#2a3a4a;" data-en="© 2026 Ahmed El Bourgy · Sakura Slice Café 🌸 · All rights reserved" data-jp="© 2026 アハメド・エル・ブルジ · さくらスライスカフェ 🌸 · 無断転載禁止">© 2026 Ahmed El Bourgy · Sakura Slice Café 🌸 · All rights reserved</div>
   </footer>
 
   <script>
@@ -541,5 +541,28 @@
     }
   </script>
 
+
+  <script>
+    (function(){
+      const KEY='sakura_lang';
+      function getLang(){ return localStorage.getItem(KEY)||'en'; }
+      function applyLang(lang){
+        localStorage.setItem(KEY,lang);
+        document.querySelectorAll('[data-en]').forEach(el=>{
+          const t=lang==='jp'?el.getAttribute('data-jp'):el.getAttribute('data-en');
+          if(t!==null) el.innerHTML=t;
+        });
+        document.querySelectorAll('.lang-globe-btn').forEach(btn=>btn.setAttribute('data-active-lang',lang));
+        const lbl=document.getElementById('nav-lang-label');
+        if(lbl) lbl.textContent=lang==='jp'?'English':'日本語';
+      }
+      window.SAKURA_LANG={
+        toggle:function(){ applyLang(getLang()==='jp'?'en':'jp'); },
+        get:getLang, apply:applyLang,
+        init:function(){ applyLang(getLang()); }
+      };
+      document.addEventListener('DOMContentLoaded',function(){ SAKURA_LANG.init(); });
+    })();
+  </script>
 </body>
 </html>
