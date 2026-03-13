@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Me3temed's Corner · Sakura Slice Café 🌸</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{--cream:#f4f8fc;--border:#d0e4f4;--blue-deep:#2a4a68;--blue-mid:#4a7aaa;--blue-light:#6a9ab8;--blue-pale:#c0d8f0;--text:#2a3a48;--text-soft:#5a7a9a;--text-muted:#8ab0cc;--night-bg:#0c1018;--night-card:#131c28;--night-border:#1e2e3e;--night-text:#c8d8e8}
+    *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+    body{font-family:'DM Sans',sans-serif;font-weight:300;background:var(--night-bg);color:var(--night-text);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(12,16,24,0.92);backdrop-filter:blur(18px);border-bottom:1px solid var(--night-border);padding:0 40px;height:64px;display:flex;align-items:center;justify-content:space-between}
+    .nav-brand{font-family:'Nunito',sans-serif;font-weight:800;font-size:18px;color:#c8d8e8;text-decoration:none}
+    .nav-back{font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;color:#6a9ab8;text-decoration:none;transition:color 0.2s}
+    .nav-back:hover{color:#a0c8e0}
+    .nav-jp{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;color:#3a5a70}
+    .lang-globe-btn{display:flex;align-items:center;gap:5px;background:rgba(255,255,255,0.05);border:1px solid var(--night-border);border-radius:50px;padding:5px 12px;font-family:'Nunito',sans-serif;font-size:11px;font-weight:700;color:#7a9ab0;cursor:pointer;white-space:nowrap;transition:all 0.2s}
+    .lang-globe-btn[data-active-lang="jp"]{background:var(--blue-deep);color:white;border-color:var(--blue-deep)}
+
+    /* ─── HERO ─── */
+    .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:80px 24px 60px;text-align:center}
+    .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 70% at 50% 60%,#0f1a2e 0%,#070c14 70%)}
+    /* Drifting stars */
+    .star{position:absolute;border-radius:50%;background:white;animation:drift linear infinite;pointer-events:none}
+    @keyframes drift{0%{transform:translateY(0) rotate(0deg);opacity:0}10%{opacity:1}90%{opacity:0.6}100%{transform:translateY(-80vh) rotate(360deg);opacity:0}}
+    /* Floating petals around owl */
+    .petal{position:absolute;font-size:18px;animation:petalFloat ease-in-out infinite;pointer-events:none}
+    @keyframes petalFloat{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-14px) rotate(15deg)}}
+    /* Thought bubble */
+    .thought-wrap{position:relative;display:inline-block;margin-bottom:10px}
+    .thought-bubble{background:rgba(255,255,255,0.06);border:1px solid rgba(100,160,210,0.25);border-radius:20px 20px 20px 4px;padding:14px 22px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16px;color:#a0c8e0;line-height:1.6;max-width:340px;position:relative;backdrop-filter:blur(6px)}
+    .thought-dots{display:flex;gap:4px;margin-left:14px;margin-top:4px}
+    .thought-dots span{width:7px;height:7px;border-radius:50%;background:rgba(100,160,210,0.3);animation:dot-pulse 1.8s ease-in-out infinite}
+    .thought-dots span:nth-child(2){animation-delay:0.3s}
+    .thought-dots span:nth-child(3){animation-delay:0.6s;width:5px;height:5px}
+    @keyframes dot-pulse{0%,100%{opacity:0.3;transform:scale(0.9)}50%{opacity:0.9;transform:scale(1.1)}}
+    /* Floating tags */
+    .float-tag{position:absolute;background:rgba(30,50,80,0.7);border:1px solid rgba(100,160,210,0.2);border-radius:50px;padding:5px 14px;font-family:'Nunito',sans-serif;font-size:11px;font-weight:700;color:#7aaac0;letter-spacing:1px;backdrop-filter:blur(6px);animation:tagFloat ease-in-out infinite}
+    @keyframes tagFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+    .hero-eyebrow{font-family:'Nunito',sans-serif;font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#4a7aaa;margin-bottom:14px;position:relative;z-index:2}
+    .hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(42px,7vw,82px);font-weight:300;line-height:1.1;color:#ddeeff;margin-bottom:18px;position:relative;z-index:2}
+    .hero-title em{font-style:italic;color:#6aaad8}
+    .hero-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(16px,2vw,20px);color:#5a8aaa;max-width:480px;line-height:1.7;margin-bottom:48px;position:relative;z-index:2}
+    .hero-owl{position:relative;z-index:2;margin-bottom:28px}
+
+    /* TAB NAV */
+    .section-nav{display:flex;justify-content:center;gap:0;padding:0 24px;max-width:700px;margin:0 auto 60px;position:relative;z-index:2}
+    .section-nav-btn{flex:1;padding:14px 18px;border:1px solid var(--night-border);background:rgba(255,255,255,0.03);font-family:'Nunito',sans-serif;font-weight:700;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:#4a6a80;cursor:pointer;transition:all 0.25s}
+    .section-nav-btn:first-child{border-radius:16px 0 0 16px;border-right:none}
+    .section-nav-btn:last-child{border-radius:0 16px 16px 0}
+    .section-nav-btn.active{background:var(--blue-deep);color:white;border-color:var(--blue-deep)}
+
+    /* CONTENT SECTIONS */
+    .content-section{display:none;padding:0 24px 100px;max-width:900px;margin:0 auto}
+    .content-section.active{display:block}
+    .section-eyebrow{font-family:'Nunito',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#3a6a8a;margin-bottom:12px;display:block}
+    .section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,4vw,46px);font-weight:300;color:#c8ddf0;line-height:1.2;margin-bottom:8px}
+    .section-title em{font-style:italic;color:#6aaad8}
+    .section-intro{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:17px;color:#5a8aaa;line-height:1.75;margin-bottom:44px;max-width:560px}
+
+    /* AFFIRMATION CARDS */
+    .affirmations-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+    .affirmation-card{background:linear-gradient(160deg,rgba(20,32,50,0.9),rgba(14,22,36,0.95));border:1px solid var(--night-border);border-radius:22px;padding:32px 28px;position:relative;overflow:hidden;transition:transform 0.25s,box-shadow 0.25s}
+    .affirmation-card:hover{transform:translateY(-4px);box-shadow:0 16px 44px rgba(0,0,0,0.4)}
+    .affirmation-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(100,160,210,0.4),transparent)}
+    .aff-deco{font-size:36px;margin-bottom:16px;display:block}
+    .aff-text{font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;color:#a0c8e0;line-height:1.7;margin-bottom:14px}
+    .aff-tag{font-family:'Nunito',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#2a5a7a}
+
+    /* STORY CARDS */
+    .stories-list{display:flex;flex-direction:column;gap:28px}
+    .story-card{background:rgba(14,22,36,0.9);border:1px solid var(--night-border);border-radius:22px;overflow:hidden;cursor:pointer;transition:transform 0.25s,box-shadow 0.25s}
+    .story-card:hover{transform:translateY(-3px);box-shadow:0 16px 44px rgba(0,0,0,0.4)}
+    .story-header{padding:28px 32px;display:flex;align-items:center;gap:20px;border-bottom:1px solid rgba(30,46,62,0.6)}
+    .story-icon{font-size:40px;flex-shrink:0}
+    .story-meta{flex:1}
+    .story-title{font-family:'Nunito',sans-serif;font-weight:800;font-size:18px;color:#c0d8ee;margin-bottom:5px}
+    .story-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;color:#4a7a9a}
+    .story-toggle{width:32px;height:32px;border-radius:50%;border:1px solid var(--night-border);background:rgba(255,255,255,0.04);display:flex;align-items:center;justify-content:center;font-size:16px;color:#4a7a9a;transition:all 0.2s;flex-shrink:0}
+    .story-card.open .story-toggle{background:var(--blue-deep);color:white;border-color:var(--blue-deep);transform:rotate(180deg)}
+    .story-body{display:none;padding:28px 32px 32px}
+    .story-card.open .story-body{display:block}
+    .story-p{font-family:'Cormorant Garamond',serif;font-size:17px;color:#8ab0c8;line-height:1.85;margin-bottom:18px}
+    .story-p:last-of-type{margin-bottom:22px}
+    .story-moral{font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#2a5a7a;border-top:1px solid var(--night-border);padding-top:18px;margin-top:4px}
+    .story-moral span{color:#5a8aaa;font-style:italic;font-family:'Cormorant Garamond',serif;font-size:16px;letter-spacing:0;text-transform:none;display:block;margin-top:6px}
+
+    /* RITUALS */
+    .rituals-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+    .ritual-card{background:rgba(14,22,36,0.9);border:1px solid var(--night-border);border-radius:20px;padding:28px 24px;transition:transform 0.25s}
+    .ritual-card:hover{transform:translateY(-3px)}
+    .ritual-num{font-family:'Nunito',sans-serif;font-size:11px;font-weight:800;letter-spacing:3px;color:#2a5a7a;margin-bottom:14px;display:block}
+    .ritual-icon{font-size:32px;margin-bottom:12px;display:block}
+    .ritual-title{font-family:'Nunito',sans-serif;font-weight:700;font-size:16px;color:#a0c0d8;margin-bottom:10px}
+    .ritual-text{font-size:14px;color:#4a6a80;line-height:1.75}
+
+    /* QUOTE BAND */
+    .quote-band{background:linear-gradient(135deg,rgba(20,40,68,0.95),rgba(10,20,40,0.98));border:1px solid var(--night-border);border-radius:24px;padding:52px 40px;text-align:center;margin:60px 0 40px;position:relative;overflow:hidden}
+    .quote-band::before{content:'❄️';position:absolute;top:-20px;left:-20px;font-size:80px;opacity:0.05}
+    .quote-band::after{content:'🌸';position:absolute;bottom:-20px;right:-20px;font-size:80px;opacity:0.05}
+    .quote-band blockquote{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,3vw,30px);font-style:italic;color:#a0c8e0;line-height:1.6;max-width:640px;margin:0 auto 16px}
+    .quote-band cite{font-family:'Nunito',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#2a5a7a}
+
+    @media(max-width:768px){nav{padding:0 16px}.nav-jp{display:none}.affirmations-grid,.rituals-grid{grid-template-columns:1fr}.section-nav-btn{font-size:10px;padding:12px 10px;letter-spacing:0.5px}}
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-brand">🌸 Sakura Slice Café</a>
+  <a href="index.html" class="nav-back" data-en="← Back to Café" data-jp="← カフェに戻る">← Back to Café</a>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <span class="nav-jp">メ3テムドの隅</span>
+    <button class="lang-globe-btn" onclick="SAKURA_LANG.toggle()" data-active-lang="en">🌐 <span id="nav-lang-label">日本語</span></button>
+  </div>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section class="hero">
+  <div class="hero-bg"></div>
+
+  <!-- Drifting stars (JS-generated) -->
+  <div id="stars-container"></div>
+
+  <!-- Floating thought bubble above owl -->
+  <div style="position:relative;z-index:2;margin-bottom:-10px">
+    <div class="thought-wrap">
+      <div class="thought-bubble" id="thought-text">"Some nights, the stars tell stories just by staying still..."</div>
+      <div class="thought-dots"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+
+  <!-- OWL SVG with surrounding elements -->
+  <div class="hero-owl" style="position:relative;width:260px;height:260px;margin:0 auto">
+
+    <!-- Floating tags around owl -->
+    <div class="float-tag" style="top:20px;left:-60px;animation-duration:3.2s;animation-delay:0s">✦ Storyteller</div>
+    <div class="float-tag" style="top:20px;right:-60px;animation-duration:2.8s;animation-delay:0.6s">❄️ Guide</div>
+    <div class="float-tag" style="bottom:50px;left:-70px;animation-duration:3.5s;animation-delay:1.2s">🌙 Dream Keeper</div>
+    <div class="float-tag" style="bottom:50px;right:-70px;animation-duration:3s;animation-delay:0.3s">🌸 Soft Voice</div>
+
+    <!-- Orbiting petals -->
+    <div class="petal" style="top:0;left:50%;transform:translateX(-50%);animation-duration:4s;animation-delay:0s">🌸</div>
+    <div class="petal" style="top:50%;right:-10px;animation-duration:3.5s;animation-delay:0.8s">❄️</div>
+    <div class="petal" style="bottom:10px;left:50%;transform:translateX(-50%);animation-duration:4.2s;animation-delay:0.4s">🌸</div>
+    <div class="petal" style="top:50%;left:-10px;animation-duration:3.8s;animation-delay:1.2s">✨</div>
+
+    <!-- Glow behind owl -->
+    <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(60,120,180,0.15) 0%,transparent 70%);pointer-events:none"></div>
+
+    <!-- OWL SVG - same as index.html mascot -->
+    <svg width="200" height="200" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto">
+      <!-- Body -->
+      <ellipse cx="80" cy="110" rx="42" ry="44" fill="#2a4a70"/>
+      <!-- Wing left -->
+      <ellipse cx="44" cy="112" rx="18" ry="28" fill="#1e3a58" transform="rotate(-12 44 112)"/>
+      <!-- Wing right -->
+      <ellipse cx="116" cy="112" rx="18" ry="28" fill="#1e3a58" transform="rotate(12 116 112)"/>
+      <!-- Belly -->
+      <ellipse cx="80" cy="118" rx="26" ry="28" fill="#3a6090" opacity="0.6"/>
+      <!-- Feet -->
+      <ellipse cx="66" cy="148" rx="12" ry="5" fill="#c8a040"/>
+      <ellipse cx="94" cy="148" rx="12" ry="5" fill="#c8a040"/>
+      <rect x="60" y="143" width="4" height="8" rx="2" fill="#c8a040"/>
+      <rect x="65" y="143" width="4" height="8" rx="2" fill="#c8a040"/>
+      <rect x="70" y="143" width="4" height="8" rx="2" fill="#c8a040"/>
+      <rect x="88" y="143" width="4" height="8" rx="2" fill="#c8a040"/>
+      <rect x="93" y="143" width="4" height="8" rx="2" fill="#c8a040"/>
+      <rect x="98" y="143" width="4" height="8" rx="2" fill="#c8a040"/>
+      <!-- Head -->
+      <circle cx="80" cy="72" r="40" fill="#2a4a70"/>
+      <!-- Ear tufts -->
+      <polygon points="56,38 50,18 64,32" fill="#1e3a58"/>
+      <polygon points="104,38 110,18 96,32" fill="#1e3a58"/>
+      <!-- Eye whites -->
+      <circle cx="65" cy="72" r="16" fill="white"/>
+      <circle cx="95" cy="72" r="16" fill="white"/>
+      <!-- Iris left -->
+      <circle cx="65" cy="72" r="11" fill="#1a2840"/>
+      <circle cx="65" cy="72" r="8" fill="#2a5090"/>
+      <circle cx="65" cy="72" r="4" fill="#0a1020"/>
+      <circle cx="69" cy="68" r="3.5" fill="white" opacity="0.9"/>
+      <circle cx="63" cy="75" r="1.5" fill="white" opacity="0.5"/>
+      <!-- Iris right -->
+      <circle cx="95" cy="72" r="11" fill="#1a2840"/>
+      <circle cx="95" cy="72" r="8" fill="#2a5090"/>
+      <circle cx="95" cy="72" r="4" fill="#0a1020"/>
+      <circle cx="99" cy="68" r="3.5" fill="white" opacity="0.9"/>
+      <circle cx="93" cy="75" r="1.5" fill="white" opacity="0.5"/>
+      <!-- Beak -->
+      <polygon points="80,80 74,88 86,88" fill="#c8a040"/>
+      <line x1="80" y1="80" x2="80" y2="88" stroke="#b09030" stroke-width="1"/>
+      <!-- Blush -->
+      <circle cx="52" cy="82" r="8" fill="#e87890" opacity="0.18"/>
+      <circle cx="108" cy="82" r="8" fill="#e87890" opacity="0.18"/>
+      <!-- Scarf detail -->
+      <ellipse cx="80" cy="107" rx="30" ry="7" fill="#1e3a58" opacity="0.5"/>
+      <!-- Snowflake detail on chest -->
+      <text x="80" y="132" text-anchor="middle" font-size="14" opacity="0.6">❄️</text>
+    </svg>
+  </div>
+
+  <p class="hero-eyebrow">Me3temed's Corner · メ3テムドの隅</p>
+  <h1 class="hero-title" data-en="Bedtime <em>Stories</em><br>& Soft Affirmations" data-jp="おやすみ<em>お話</em><br>と優しい言葉">Bedtime <em>Stories</em><br>& Soft Affirmations</h1>
+  <p class="hero-sub" data-en="Every night before you close your eyes, Me3temed has something gentle to leave with you." data-jp="目を閉じる前に、メ3テムドがそっと言葉を届けます。">Every night before you close your eyes, Me3temed has something gentle to leave with you.</p>
+
+  <!-- Section nav tabs -->
+  <div class="section-nav">
+    <button class="section-nav-btn active" id="btn-affirmations" onclick="switchSection('affirmations')" data-en="🌙 Affirmations" data-jp="🌙 言葉">🌙 Affirmations</button>
+    <button class="section-nav-btn" id="btn-stories" onclick="switchSection('stories')" data-en="📖 Bedtime Stories" data-jp="📖 おやすみお話">📖 Bedtime Stories</button>
+    <button class="section-nav-btn" id="btn-rituals" onclick="switchSection('rituals')" data-en="🕯️ Wind-Down Rituals" data-jp="🕯️ 就寝準備">🕯️ Wind-Down Rituals</button>
+  </div>
+</section>
+
+<!-- ─── AFFIRMATIONS ─── -->
+<div class="content-section active" id="section-affirmations">
+  <span class="section-eyebrow">Nightly Affirmations · 夜の言葉</span>
+  <h2 class="section-title">Words to carry you <em>into sleep</em></h2>
+  <p class="section-intro">Me3temed chose these for the nights when rest feels far away. Read slowly. Breathe between each one.</p>
+  <div class="affirmations-grid">
+    <div class="affirmation-card">
+      <span class="aff-deco">🌙</span>
+      <p class="aff-text">"You did enough today. Not just enough — you did exactly what this day asked of you. That is enough. That will always be enough."</p>
+      <span class="aff-tag">On Enoughness · 十分さについて</span>
+    </div>
+    <div class="affirmation-card">
+      <span class="aff-deco">❄️</span>
+      <p class="aff-text">"The worries you carry into sleep do not need solving tonight. They will still be there in the morning — and so will you, rested and clearer."</p>
+      <span class="aff-tag">On Rest · 休息について</span>
+    </div>
+    <div class="affirmation-card">
+      <span class="aff-deco">🌸</span>
+      <p class="aff-text">"You are not behind. Growth doesn't move on a schedule. The slowest blooming trees make the deepest shade."</p>
+      <span class="aff-tag">On Pace · ペースについて</span>
+    </div>
+    <div class="affirmation-card">
+      <span class="aff-deco">✨</span>
+      <p class="aff-text">"Tonight, you don't need to be productive. You don't need to plan. You are allowed to simply exist, and let the night be kind to you."</p>
+      <span class="aff-tag">On Simply Being · 存在することについて</span>
+    </div>
+    <div class="affirmation-card">
+      <span class="aff-deco">🤍</span>
+      <p class="aff-text">"The people who love you are not keeping score. Neither should you. Lay down the tallying. Put it gently on the shelf. It will keep."</p>
+      <span class="aff-tag">On Love · 愛について</span>
+    </div>
+    <div class="affirmation-card">
+      <span class="aff-deco">☕</span>
+      <p class="aff-text">"Tomorrow has its own warmth waiting for you. A new mug. A quiet minute. A small thing that will make you glad to be alive — you just can't see it yet."</p>
+      <span class="aff-tag">On Tomorrow · 明日について</span>
+    </div>
+    <div class="affirmation-card">
+      <span class="aff-deco">🌿</span>
+      <p class="aff-text">"You are more than the sum of what you produced today. You have worth in your stillness. You have worth in your silence. You have worth, full stop."</p>
+      <span class="aff-tag">On Worth · 価値について</span>
+    </div>
+    <div class="affirmation-card">
+      <span class="aff-deco">🫧</span>
+      <p class="aff-text">"Every difficult feeling you felt today was proof that you are alive and paying attention. Feel it, then let it leave through the window like cold air when the warmth comes in."</p>
+      <span class="aff-tag">On Feeling · 感じることについて</span>
+    </div>
+  </div>
+  <div class="quote-band" style="margin-top:52px">
+    <blockquote>"The night is not your enemy — it is the pause the universe built in so that everything beautiful can begin again."</blockquote>
+    <cite>— Me3temed ❄️ · Sakura Slice Café</cite>
+  </div>
+</div>
+
+<!-- ─── STORIES ─── -->
+<div class="content-section" id="section-stories">
+  <span class="section-eyebrow">Bedtime Stories · おやすみお話</span>
+  <h2 class="section-title">Small tales for <em>quiet nights</em></h2>
+  <p class="section-intro">Me3temed wrote these on nights when the café was still and the candles were burning low. Read them slowly — they don't rush.</p>
+  <div class="stories-list">
+
+    <div class="story-card" onclick="toggleStory(this)">
+      <div class="story-header">
+        <div class="story-icon">🌸</div>
+        <div class="story-meta">
+          <div class="story-title">The Petal That Didn't Fall</div>
+          <div class="story-sub">A story about holding on — and letting go at the right time</div>
+        </div>
+        <div class="story-toggle">▾</div>
+      </div>
+      <div class="story-body">
+        <p class="story-p">There was once a sakura petal that refused to fall. Every spring, when the wind came and the other petals drifted beautifully downward, this one stayed. It held the branch with a grip it couldn't explain — only that it was afraid of what falling meant.</p>
+        <p class="story-p">The old owl watched from the branch above. He didn't say anything for three springs. On the fourth, he said softly: "You know, the petals that fall are not lost. They become the ground that the next tree grows from."</p>
+        <p class="story-p">The petal listened. It still didn't fall that spring. But it stopped being afraid. And in the fifth year, when the wind came — warm and gentle and smelling of rain — it let go. And it fell beautifully. And the ground was soft.</p>
+        <div class="story-moral">Me3temed's Note<span>"Holding on isn't always fear. But when it is — know that the falling can be beautiful, and the ground below you was built by everything that fell before."</span></div>
+      </div>
+    </div>
+
+    <div class="story-card" onclick="toggleStory(this)">
+      <div class="story-header">
+        <div class="story-icon">☕</div>
+        <div class="story-meta">
+          <div class="story-title">The Cup That Was Always Empty</div>
+          <div class="story-sub">A story about giving — and knowing when to refill</div>
+        </div>
+        <div class="story-toggle">▾</div>
+      </div>
+      <div class="story-body">
+        <p class="story-p">There was a generous cup that gave its warmth to everyone who came. Morning people, evening people, sad people, tired people — the cup gave and gave and the café was full of people who had been warmed by it.</p>
+        <p class="story-p">But one cold Tuesday, the cup sat empty and cold on the shelf. It had forgotten to let anyone refill it. It had believed, quietly, that asking to be refilled was somehow taking something from the people it warmed.</p>
+        <p class="story-p">Me3temed picked it up gently and filled it with something warm and sweet. "A cup that never refills isn't generous," he said. "It's just empty. Let people love you back. That's not weakness — that's how warmth stays in the world."</p>
+        <div class="story-moral">Me3temed's Note<span>"You are allowed to need. You are allowed to ask. The people who love you want to fill your cup — let them."</span></div>
+      </div>
+    </div>
+
+    <div class="story-card" onclick="toggleStory(this)">
+      <div class="story-header">
+        <div class="story-icon">🌙</div>
+        <div class="story-meta">
+          <div class="story-title">The Moon That Apologised for Shining</div>
+          <div class="story-sub">A story about existing without apology</div>
+        </div>
+        <div class="story-toggle">▾</div>
+      </div>
+      <div class="story-body">
+        <p class="story-p">The moon had a habit, on cloudy nights, of apologising. "I'm sorry I can't shine tonight," it would whisper to the sleeping world below. "I'm sorry I'm blocked. I'm sorry I'm not what you need right now."</p>
+        <p class="story-p">Me3temed heard this one November night from the café windowsill. He looked up and said: "The clouds are not your fault. And the world below is not suffering because of you. Some nights, things are simply grey. That is not a failure of the moon."</p>
+        <p class="story-p">The moon was quiet for a long time. "But what if they needed me tonight?" it finally asked. Me3temed tilted his head. "They know where you are. And on the nights you shine fully, you shine for the nights you couldn't. Both nights are yours."</p>
+        <div class="story-moral">Me3temed's Note<span>"You don't have to apologise for the nights you couldn't shine. The world remembers your full moons."</span></div>
+      </div>
+    </div>
+
+    <div class="story-card" onclick="toggleStory(this)">
+      <div class="story-header">
+        <div class="story-icon">❄️</div>
+        <div class="story-meta">
+          <div class="story-title">The Slowest Snow</div>
+          <div class="story-sub">A story about arriving at your own pace</div>
+        </div>
+        <div class="story-toggle">▾</div>
+      </div>
+      <div class="story-body">
+        <p class="story-p">In the first snowfall of a quiet winter, all the snowflakes fell quickly — eager and bright, landing in perfect silence on the rooftops and roads. All except one. This snowflake drifted slowly, turning and pausing, noticing every inch of the air it moved through.</p>
+        <p class="story-p">By the time it landed, the others had already been walked on, melted, ploughed aside. But this snowflake landed on a windowsill beside a candle, and a small child pressed her face to the glass and said: "Look. A perfect one."</p>
+        <p class="story-p">Me3temed was watching from the café roof. He pulled his scarf tighter and smiled. "Arriving last isn't the same as arriving wrong," he said to no one in particular. "Sometimes the whole point was the drifting."</p>
+        <div class="story-moral">Me3temed's Note<span>"Take your time. The world will still notice a perfect thing when it arrives — even if it arrives slowly."</span></div>
+      </div>
+    </div>
+
+    <div class="story-card" onclick="toggleStory(this)">
+      <div class="story-header">
+        <div class="story-icon">🌿</div>
+        <div class="story-meta">
+          <div class="story-title">The Tree That Grew Inward</div>
+          <div class="story-sub">A story about the growth no one sees</div>
+        </div>
+        <div class="story-toggle">▾</div>
+      </div>
+      <div class="story-body">
+        <p class="story-p">For three years, a young tree didn't grow upward at all. Its neighbours reached for the sky and spread their branches wide, and visitors to the forest would often walk past without noticing the small, unchanged-looking tree by the path.</p>
+        <p class="story-p">But underground, everything was happening. Roots were spreading through clay and stone. A network was forming — quiet, patient, going deeper than anything the other trees had managed. The small tree was growing where it mattered most.</p>
+        <p class="story-p">In the fourth year, it grew three feet in a single season. And in a storm that broke two of the tall proud trees, the small one held. "You have to earn your stillness," Me3temed said from his branch above it. "Yours was not laziness. It was foundation."</p>
+        <div class="story-moral">Me3temed's Note<span>"The growth that no one sees is still growth. Your roots are going somewhere — trust the invisible work."</span></div>
+      </div>
+    </div>
+
+  </div>
+  <div class="quote-band">
+    <blockquote>"Every story I tell is just one way of saying: you are not alone in the dark, and morning is already on its way."</blockquote>
+    <cite>— Me3temed ❄️ · Sakura Slice Café</cite>
+  </div>
+</div>
+
+<!-- ─── RITUALS ─── -->
+<div class="content-section" id="section-rituals">
+  <span class="section-eyebrow">Wind-Down Rituals · 就寝準備</span>
+  <h2 class="section-title">A gentle <em>ending</em> to the day</h2>
+  <p class="section-intro">Me3temed designed these rituals for the nights when the day won't let you go. Do one, do all — move slowly through them.</p>
+  <div class="rituals-grid">
+    <div class="ritual-card">
+      <span class="ritual-num">RITUAL 01</span>
+      <span class="ritual-icon">☕</span>
+      <div class="ritual-title">The Last Warm Drink</div>
+      <p class="ritual-text">Make yourself something warm — the Moon Milk Blend if you have it, or anything that requires two hands to hold. No screens while you drink it. Just the warmth, your hands, and the quiet.</p>
+    </div>
+    <div class="ritual-card">
+      <span class="ritual-num">RITUAL 02</span>
+      <span class="ritual-icon">📓</span>
+      <div class="ritual-title">The Three Things</div>
+      <p class="ritual-text">Before you sleep, write three things that existed today that were good. Not great — just good. A comfortable chair. A kind word. Afternoon light through a window. Train your eyes to find them.</p>
+    </div>
+    <div class="ritual-card">
+      <span class="ritual-num">RITUAL 03</span>
+      <span class="ritual-icon">🌬️</span>
+      <div class="ritual-title">The Release Breath</div>
+      <p class="ritual-text">Breathe in for four counts — slowly, all the way. Hold for four. Breathe out for six, imagining the day leaving through your mouth like fog on a cold morning. Do this three times. You are allowed to let it go now.</p>
+    </div>
+    <div class="ritual-card">
+      <span class="ritual-num">RITUAL 04</span>
+      <span class="ritual-icon">🕯️</span>
+      <div class="ritual-title">The Soft Light Hour</div>
+      <p class="ritual-text">Dim or turn off every harsh light an hour before sleep. Light a candle if you have one. Let your eyes adjust to something gentler. Your nervous system will thank you quietly, in the language of easy sleep.</p>
+    </div>
+    <div class="ritual-card">
+      <span class="ritual-num">RITUAL 05</span>
+      <span class="ritual-icon">🌙</span>
+      <div class="ritual-title">The Letting-Go List</div>
+      <p class="ritual-text">Write down every unfinished worry or task — not to solve them, just to put them somewhere outside your head. Tell yourself: "These exist. They will still exist tomorrow. Tonight they live on this paper, not in me."</p>
+    </div>
+    <div class="ritual-card">
+      <span class="ritual-num">RITUAL 06</span>
+      <span class="ritual-icon">🎵</span>
+      <div class="ritual-title">The Quiet Playlist</div>
+      <p class="ritual-text">Me3temed made a playlist for exactly this — the hour before sleep, when the day is done and the night hasn't quite arrived. Something without words, or words in a language you don't understand. Let it be background to your breathing.</p>
+    </div>
+    <div class="ritual-card">
+      <span class="ritual-num">RITUAL 07</span>
+      <span class="ritual-icon">🤍</span>
+      <div class="ritual-title">The Body Check</div>
+      <p class="ritual-text">Starting from your feet and moving slowly upward, notice each part of your body. Not to fix anything — just to visit. To say: I notice you. Thank you for carrying me today. By the time you reach your shoulders, sleep is usually already waiting.</p>
+    </div>
+    <div class="ritual-card">
+      <span class="ritual-num">RITUAL 08</span>
+      <span class="ritual-icon">🌸</span>
+      <div class="ritual-title">The One Good Thing</div>
+      <p class="ritual-text">Before your eyes close, think of one person you are glad exists. You don't have to tell them tonight. Just hold them for a moment — the warmth of their existence, the fact that they are somewhere in the world, living. Let that be the last thought.</p>
+    </div>
+  </div>
+  <div class="quote-band">
+    <blockquote>"Sleep is not the absence of the day. It is the day completing itself — becoming rest, becoming dream, becoming the ground for tomorrow."</blockquote>
+    <cite>— Me3temed ❄️ · Sakura Slice Café</cite>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer style="background:#070c14;border-top:1px solid #1a2a3a;padding:40px;text-align:center;">
+  <div style="font-family:'Nunito',sans-serif;font-weight:700;font-size:18px;color:#3a6080;margin-bottom:8px;">🌸 Sakura Slice Café</div>
+  <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;color:#1a3040;margin-bottom:16px;">Slow sips, quiet thoughts & the grace of a gentle morning.</div>
+  <div style="font-size:12px;color:#1a3040;" data-en="© 2026 Ahmed El Bourgy · Sakura Slice Café 🌸 · All rights reserved" data-jp="© 2026 アハメド・エル・ブルジ · さくらスライスカフェ 🌸 · 無断転載禁止">© 2026 Ahmed El Bourgy · Sakura Slice Café 🌸 · All rights reserved</div>
+</footer>
+
+<script>
+// ── Stars ──
+(function(){
+  const c=document.getElementById('stars-container');
+  for(let i=0;i<60;i++){
+    const s=document.createElement('div');
+    s.className='star';
+    const sz=Math.random()*2+1;
+    s.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;animation-duration:${8+Math.random()*14}s;animation-delay:${Math.random()*-20}s;opacity:${0.2+Math.random()*0.5}`;
+    c.appendChild(s);
+  }
+})();
+
+// ── Rotating thought bubbles ──
+const thoughts=[
+  '"Some nights, the stars tell stories just by staying still..."',
+  '"Rest is not a reward — it is a right you were born with."',
+  '"The quiet has a texture. Feel it tonight."',
+  '"You are not behind. You are exactly where your story needs you."',
+  '"Let the night be gentle with you. You\'ve earned gentle."',
+  '"Tomorrow is already being made while you sleep."',
+  '"A good night begins with choosing to let the day end."',
+];
+let ti=0;
+setInterval(()=>{
+  ti=(ti+1)%thoughts.length;
+  const el=document.getElementById('thought-text');
+  el.style.opacity='0';
+  setTimeout(()=>{el.textContent=thoughts[ti];el.style.opacity='1';},400);
+},5000);
+
+// ── Section tabs ──
+function switchSection(id){
+  document.querySelectorAll('.content-section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.section-nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('section-'+id).classList.add('active');
+  document.getElementById('btn-'+id).classList.add('active');
+  document.querySelector('.content-section.active').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+// ── Story accordion ──
+function toggleStory(card){
+  const isOpen=card.classList.contains('open');
+  document.querySelectorAll('.story-card.open').forEach(c=>c.classList.remove('open'));
+  if(!isOpen)card.classList.add('open');
+}
+
+// ── Thought bubble transition ──
+document.getElementById('thought-text').style.transition='opacity 0.4s ease';
+</script>
+
+<script>
+(function(){const KEY='sakura_lang';function getLang(){return localStorage.getItem(KEY)||'en';}function applyLang(lang){localStorage.setItem(KEY,lang);document.querySelectorAll('[data-en]').forEach(el=>{const t=lang==='jp'?el.getAttribute('data-jp'):el.getAttribute('data-en');if(t!==null)el.innerHTML=t;});document.querySelectorAll('.lang-globe-btn').forEach(btn=>btn.setAttribute('data-active-lang',lang));const lbl=document.getElementById('nav-lang-label');if(lbl)lbl.textContent=lang==='jp'?'English':'日本語';}window.SAKURA_LANG={toggle:function(){applyLang(getLang()==='jp'?'en':'jp');},get:getLang,apply:applyLang,init:function(){applyLang(getLang());}};document.addEventListener('DOMContentLoaded',function(){SAKURA_LANG.init();});})();
+</script>
+</body>
+</html>
