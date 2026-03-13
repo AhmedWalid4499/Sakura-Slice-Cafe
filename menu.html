@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu · Sakura Slice Café 🌸</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream: #f4f8fc;
+      --border: #d0e4f4;
+      --blue-deep: #2a4a68;
+      --blue-mid: #4a7aaa;
+      --blue-light: #6a9ab8;
+      --blue-pale: #c0d8f0;
+      --text: #2a3a48;
+      --text-soft: #5a7a9a;
+      --text-muted: #8ab0cc;
+    }
+
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+
+    body {
+      font-family:'DM Sans', sans-serif; font-weight:300;
+      background: var(--cream); color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position:fixed; top:0; left:0; right:0; z-index:100;
+      background:rgba(244,248,252,0.9); backdrop-filter:blur(18px);
+      border-bottom:1px solid var(--border);
+      padding:0 40px; height:64px;
+      display:flex; align-items:center; justify-content:space-between;
+    }
+
+    .nav-brand { font-family:'Nunito',sans-serif; font-weight:800; font-size:18px; color:var(--blue-deep); text-decoration:none; }
+    .nav-back { font-family:'Nunito',sans-serif; font-size:13px; font-weight:700; color:var(--blue-mid); text-decoration:none; }
+    .nav-back:hover { color:var(--blue-deep); }
+    .nav-jp { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:13px; color:var(--text-muted); }
+
+    /* ─── PAGE HEADER ─── */
+    .page-header {
+      padding:110px 24px 60px; text-align:center;
+      background:linear-gradient(180deg, #eef6ff, #f4f8fc);
+      border-bottom:1px solid var(--border);
+    }
+
+    .page-title { font-family:'Cormorant Garamond',serif; font-size:clamp(38px,6vw,66px); font-weight:300; color:var(--blue-deep); line-height:1.2; margin-bottom:14px; }
+    .page-title em { font-style:italic; color:var(--blue-mid); }
+
+    .page-sub { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:18px; color:var(--text-soft); max-width:500px; margin:0 auto; line-height:1.7; }
+
+    /* ─── TAB BAR ─── */
+    .tab-bar {
+      display:flex; justify-content:center; gap:0;
+      padding:32px 24px 0; max-width:500px; margin:0 auto;
+    }
+
+    .tab-btn {
+      flex:1; padding:14px 20px; border:1px solid var(--border);
+      background:white; font-family:'Nunito',sans-serif; font-weight:700;
+      font-size:13px; letter-spacing:1px; color:var(--text-muted);
+      cursor:pointer; transition:all 0.25s;
+    }
+
+    .tab-btn:first-child { border-radius:16px 0 0 16px; border-right:none; }
+    .tab-btn:last-child  { border-radius:0 16px 16px 0; }
+    .tab-btn.active { background:var(--blue-deep); color:white; border-color:var(--blue-deep); }
+
+    /* ─── SECTION ─── */
+    .menu-section { display:none; padding:52px 24px 100px; }
+    .menu-section.active { display:block; }
+
+    .container { max-width:1040px; margin:0 auto; }
+
+    .section-eyebrow { font-family:'Nunito',sans-serif; font-size:11px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--text-muted); margin-bottom:10px; display:block; }
+    .section-title { font-family:'Cormorant Garamond',serif; font-size:clamp(28px,4vw,42px); font-weight:300; color:var(--blue-deep); line-height:1.25; margin-bottom:14px; }
+    .section-title em { font-style:italic; color:var(--blue-mid); }
+
+    /* ─── DRINK CARDS ─── */
+    .drinks-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:48px; }
+
+    .drink-card {
+      background:linear-gradient(160deg,#fafcff,#f5faff);
+      border:1px solid var(--border); border-radius:22px;
+      overflow:hidden; cursor:pointer;
+      transition:transform 0.25s, box-shadow 0.25s;
+    }
+
+    .drink-card:hover { transform:translateY(-4px); box-shadow:0 16px 40px rgba(80,130,180,0.13); }
+
+    .drink-card-top {
+      padding:28px 24px 20px; display:flex; align-items:flex-start; gap:14px;
+      border-bottom:1px solid var(--border); position:relative;
+    }
+
+    .drink-icon { font-size:42px; flex-shrink:0; }
+
+    .drink-info { flex:1; }
+    .drink-name { font-family:'Nunito',sans-serif; font-weight:700; font-size:16px; color:var(--blue-deep); margin-bottom:6px; }
+    .drink-desc { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14px; color:var(--text-soft); line-height:1.55; margin-bottom:10px; }
+    .drink-tag { font-size:10.5px; font-family:'Nunito',sans-serif; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--text-muted); }
+
+    .drink-toggle {
+      position:absolute; top:14px; right:16px;
+      width:28px; height:28px; border-radius:50%;
+      background:var(--cream); border:1px solid var(--border);
+      display:flex; align-items:center; justify-content:center;
+      font-size:14px; transition:all 0.2s;
+    }
+
+    .drink-card.open .drink-toggle { background:var(--blue-deep); color:white; border-color:var(--blue-deep); transform:rotate(45deg); }
+
+    .drink-expand {
+      display:none;
+      padding:20px 24px 24px;
+    }
+
+    .drink-card.open .drink-expand { display:block; }
+
+    .expand-label { font-family:'Nunito',sans-serif; font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--text-muted); margin-bottom:8px; margin-top:14px; display:block; }
+    .expand-label:first-child { margin-top:0; }
+
+    .expand-list { list-style:none; padding:0; margin:0 0 4px; }
+    .expand-list li { font-size:13px; color:var(--text-soft); padding:5px 0; border-bottom:1px solid rgba(200,220,240,0.4); display:flex; align-items:center; gap:8px; line-height:1.5; }
+    .expand-list li:last-child { border-bottom:none; }
+    .expand-list li::before { content:'·'; color:var(--blue-pale); font-size:18px; flex-shrink:0; }
+
+    .expand-steps { list-style:none; padding:0; margin:0; }
+    .expand-steps li { font-size:13px; color:var(--text-soft); padding:6px 0; border-bottom:1px solid rgba(200,220,240,0.4); display:flex; gap:10px; line-height:1.6; }
+    .expand-steps li:last-child { border-bottom:none; }
+    .step-n { font-family:'Nunito',sans-serif; font-weight:800; font-size:12px; color:var(--blue-mid); flex-shrink:0; width:18px; margin-top:1px; }
+
+    .expand-quote { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:13.5px; color:var(--text-soft); text-align:center; padding:12px 14px; background:#eef6ff; border-radius:10px; margin-top:14px; line-height:1.6; }
+
+    .drinks-note {
+      text-align:center; margin-top:36px;
+      font-family:'Cormorant Garamond',serif; font-style:italic;
+      font-size:16px; color:var(--text-muted);
+    }
+
+    /* ─── DESSERTS ─── */
+    #section-desserts .container { }
+
+    .desserts-intro { margin-bottom:52px; }
+
+    .desserts-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:28px; }
+
+    .dessert-card {
+      background:white; border:1px solid var(--border); border-radius:24px;
+      overflow:hidden; display:grid; grid-template-columns:100px 1fr;
+      transition:transform 0.25s, box-shadow 0.25s;
+    }
+
+    .dessert-card:hover { transform:translateY(-3px); box-shadow:0 14px 36px rgba(80,130,180,0.1); }
+
+    .dessert-visual {
+      background:linear-gradient(160deg,#eef6ff,#e4f0fa);
+      display:flex; align-items:center; justify-content:center;
+      font-size:44px;
+    }
+
+    .dessert-body { padding:22px 22px; }
+
+    .dessert-name { font-family:'Nunito',sans-serif; font-weight:700; font-size:17px; color:var(--blue-deep); margin-bottom:6px; }
+    .dessert-jp { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:13px; color:var(--text-muted); margin-bottom:8px; }
+    .dessert-desc { font-size:13.5px; color:var(--text-soft); line-height:1.65; margin-bottom:12px; }
+
+    .dessert-tags { display:flex; flex-wrap:wrap; gap:6px; }
+    .dessert-tag { background:rgba(100,160,210,0.1); border:1px solid rgba(100,160,210,0.22); border-radius:40px; padding:3px 10px; font-size:10.5px; color:var(--text-soft); font-family:'Nunito',sans-serif; font-weight:600; letter-spacing:0.5px; }
+
+    .dessert-pairing {
+      display:flex; align-items:center; gap:10px;
+      background:var(--cream); border:1px solid var(--border);
+      border-radius:10px; padding:10px 14px; margin-top:12px;
+      font-size:12.5px; color:var(--text-soft);
+    }
+
+    .pairing-label { font-family:'Nunito',sans-serif; font-weight:700; font-size:10px; letter-spacing:1.5px; text-transform:uppercase; color:var(--text-muted); margin-right:4px; }
+
+    /* ─── SEASONAL BAND ─── */
+    .seasonal-band {
+      background:linear-gradient(135deg, var(--blue-deep), #3a6090);
+      padding:56px 24px; text-align:center; margin:60px 0 0;
+    }
+
+    .seasonal-band h2 { font-family:'Cormorant Garamond',serif; font-size:clamp(24px,4vw,38px); font-style:italic; color:#ddeeff; line-height:1.5; max-width:600px; margin:0 auto 14px; }
+    .seasonal-band span { font-size:12px; letter-spacing:3px; text-transform:uppercase; color:rgba(170,210,240,0.5); }
+
+    @media (max-width:768px) {
+      .drinks-grid { grid-template-columns:1fr 1fr; }
+      .desserts-grid { grid-template-columns:1fr; }
+      nav { padding:0 20px; }
+      .nav-jp { display:none; }
+    }
+
+    @media (max-width:500px) {
+      .drinks-grid { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-brand">🌸 Sakura Slice Café</a>
+    <a href="index.html" class="nav-back">← Back to Café</a>
+    <span class="nav-jp">メニュー · お菓子</span>
+  </nav>
+
+  <div class="page-header">
+    <h1 class="page-title">Our <em>Menu</em></h1>
+    <p class="page-sub">Seasonal warm sips and Japanese-inspired sweets — made for slow, cozy days.</p>
+  </div>
+
+  <div class="tab-bar">
+    <button class="tab-btn active" id="tab-drinks" onclick="switchTab('drinks')">☕ Drinks</button>
+    <button class="tab-btn" id="tab-desserts" onclick="switchTab('desserts')">🍡 Desserts</button>
+  </div>
+
+  <!-- ─── DRINKS ─── -->
+  <div class="menu-section active" id="section-drinks">
+    <div class="container">
+      <span class="section-eyebrow">Drink Menu · ドリンクメニュー</span>
+      <h2 class="section-title">Seasonal <em>Warm Sips</em></h2>
+      <div class="drinks-grid">
+
+        <div class="drink-card" onclick="toggleDrink(this)">
+          <div class="drink-card-top">
+            <div class="drink-icon">🍁</div>
+            <div class="drink-info">
+              <div class="drink-name">Cardamom Maple Milk</div>
+              <div class="drink-desc">Warm, lightly spiced, deeply comforting — a hug made drinkable.</div>
+              <span class="drink-tag">☕ This Week · Tap for recipe</span>
+            </div>
+            <div class="drink-toggle">+</div>
+          </div>
+          <div class="drink-expand">
+            <span class="expand-label">Ingredients</span>
+            <ul class="expand-list"><li>1 cup milk — dairy or oat</li><li>1 tsp maple syrup</li><li>⅛ tsp ground cardamom</li><li>Pinch of cinnamon</li><li>Tiny splash of vanilla</li></ul>
+            <span class="expand-label">How to Make It</span>
+            <ol class="expand-steps"><li><span class="step-n">01</span><span>Heat milk gently over low heat — no rushing.</span></li><li><span class="step-n">02</span><span>Stir in maple syrup, cardamom, cinnamon.</span></li><li><span class="step-n">03</span><span>Add vanilla. Pour into your favourite mug.</span></li><li><span class="step-n">04</span><span>Hold with both hands. Sip slowly. ☕</span></li></ol>
+            <div class="expand-quote">"Warmth is patience made drinkable." — Me3temed</div>
+          </div>
+        </div>
+
+        <div class="drink-card" onclick="toggleDrink(this)">
+          <div class="drink-card-top">
+            <div class="drink-icon">🍵</div>
+            <div class="drink-info">
+              <div class="drink-name">Hojicha Honey Latte</div>
+              <div class="drink-desc">Toasted, earthy, soft — the taste of a slow Japanese morning.</div>
+              <span class="drink-tag">❄️ Winter Favourite</span>
+            </div>
+            <div class="drink-toggle">+</div>
+          </div>
+          <div class="drink-expand">
+            <span class="expand-label">Ingredients</span>
+            <ul class="expand-list"><li>1 tbsp hojicha powder</li><li>¾ cup steamed oat milk</li><li>1 tsp raw honey</li><li>Pinch of sea salt</li></ul>
+            <span class="expand-label">How to Make It</span>
+            <ol class="expand-steps"><li><span class="step-n">01</span><span>Brew hojicha in ¼ cup hot water for 3 min.</span></li><li><span class="step-n">02</span><span>Stir in honey until dissolved.</span></li><li><span class="step-n">03</span><span>Steam oat milk and pour over.</span></li><li><span class="step-n">04</span><span>Finish with a tiny pinch of sea salt. 🍵</span></li></ol>
+            <div class="expand-quote">"Toasted mornings taste like permission to slow down." — Me3temed</div>
+          </div>
+        </div>
+
+        <div class="drink-card" onclick="toggleDrink(this)">
+          <div class="drink-card-top">
+            <div class="drink-icon">🌸</div>
+            <div class="drink-info">
+              <div class="drink-name">Sakura Blossom Tea</div>
+              <div class="drink-desc">Delicate floral warmth. A cup that smells like springtime longing.</div>
+              <span class="drink-tag">🌸 Classic</span>
+            </div>
+            <div class="drink-toggle">+</div>
+          </div>
+          <div class="drink-expand">
+            <span class="expand-label">Ingredients</span>
+            <ul class="expand-list"><li>1 tbsp dried sakura blossoms</li><li>1 cup hot water ~80°C</li><li>½ tsp honey (optional)</li><li>Slice of lemon</li></ul>
+            <span class="expand-label">How to Make It</span>
+            <ol class="expand-steps"><li><span class="step-n">01</span><span>Soak salted blossoms 5 min, drain.</span></li><li><span class="step-n">02</span><span>Place in cup and pour hot water over.</span></li><li><span class="step-n">03</span><span>Watch them bloom. Add honey and lemon.</span></li><li><span class="step-n">04</span><span>Drink slowly and notice the quiet. 🌸</span></li></ol>
+            <div class="expand-quote">"Even a single petal can carry the weight of spring." — Me3temed</div>
+          </div>
+        </div>
+
+        <div class="drink-card" onclick="toggleDrink(this)">
+          <div class="drink-card-top">
+            <div class="drink-icon">🍫</div>
+            <div class="drink-info">
+              <div class="drink-name">Dark Chocolate Miso</div>
+              <div class="drink-desc">Deep, complex, gently salty. Unexpected and unforgettable.</div>
+              <span class="drink-tag">✦ Chef's Pick</span>
+            </div>
+            <div class="drink-toggle">+</div>
+          </div>
+          <div class="drink-expand">
+            <span class="expand-label">Ingredients</span>
+            <ul class="expand-list"><li>1 cup oat milk</li><li>2 tbsp dark cocoa powder</li><li>1 tsp white miso paste</li><li>1 tsp maple syrup</li><li>Pinch of chili flakes</li></ul>
+            <span class="expand-label">How to Make It</span>
+            <ol class="expand-steps"><li><span class="step-n">01</span><span>Whisk cocoa, miso, sweetener with 2 tbsp warm milk into a paste.</span></li><li><span class="step-n">02</span><span>Heat remaining milk until steaming.</span></li><li><span class="step-n">03</span><span>Pour hot milk into paste, whisk smooth.</span></li><li><span class="step-n">04</span><span>Top with chili flakes. Trust the process. 🍫</span></li></ol>
+            <div class="expand-quote">"Depth needs contrast. Salt makes sweetness real." — Me3temed</div>
+          </div>
+        </div>
+
+        <div class="drink-card" onclick="toggleDrink(this)">
+          <div class="drink-card-top">
+            <div class="drink-icon">🍊</div>
+            <div class="drink-info">
+              <div class="drink-name">Yuzu Brown Butter Milk</div>
+              <div class="drink-desc">Citrus-bright and nutty. Sunshine in a cup, even in winter.</div>
+              <span class="drink-tag">☀️ Morning Glow</span>
+            </div>
+            <div class="drink-toggle">+</div>
+          </div>
+          <div class="drink-expand">
+            <span class="expand-label">Ingredients</span>
+            <ul class="expand-list"><li>1 cup whole milk</li><li>1 tsp unsalted butter</li><li>1 tsp yuzu juice</li><li>½ tsp honey</li><li>Pinch of vanilla</li></ul>
+            <span class="expand-label">How to Make It</span>
+            <ol class="expand-steps"><li><span class="step-n">01</span><span>Brown butter in pan until nutty and golden.</span></li><li><span class="step-n">02</span><span>Add milk, heat gently. Stir in honey and vanilla.</span></li><li><span class="step-n">03</span><span>Remove from heat, add yuzu juice.</span></li><li><span class="step-n">04</span><span>Pour into warm mug. Breathe the citrus in first. ☀️</span></li></ol>
+            <div class="expand-quote">"Some mornings need sunshine engineered into them." — Me3temed</div>
+          </div>
+        </div>
+
+        <div class="drink-card" onclick="toggleDrink(this)">
+          <div class="drink-card-top">
+            <div class="drink-icon">🌙</div>
+            <div class="drink-info">
+              <div class="drink-name">Moon Milk Blend</div>
+              <div class="drink-desc">Ashwagandha, lavender, oat — brewed for quiet and sleep.</div>
+              <span class="drink-tag">🌙 Evening Only</span>
+            </div>
+            <div class="drink-toggle">+</div>
+          </div>
+          <div class="drink-expand">
+            <span class="expand-label">Ingredients</span>
+            <ul class="expand-list"><li>1 cup oat milk</li><li>½ tsp ashwagandha powder</li><li>¼ tsp dried lavender</li><li>1 tsp honey</li><li>Pinch of nutmeg</li></ul>
+            <span class="expand-label">How to Make It</span>
+            <ol class="expand-steps"><li><span class="step-n">01</span><span>Warm oat milk over low heat.</span></li><li><span class="step-n">02</span><span>Whisk in ashwagandha, lavender, honey.</span></li><li><span class="step-n">03</span><span>Strain through fine sieve.</span></li><li><span class="step-n">04</span><span>Finish with nutmeg. Drink in dim light. 🌙</span></li></ol>
+            <div class="expand-quote">"The night doesn't rush. Neither should you." — Me3temed</div>
+          </div>
+        </div>
+
+        <div class="drink-card" onclick="toggleDrink(this)">
+          <div class="drink-card-top">
+            <div class="drink-icon">🌿</div>
+            <div class="drink-info">
+              <div class="drink-name">Matcha Sesame Latte</div>
+              <div class="drink-desc">Earthy, nutty, grounding — made for days that belong entirely to you.</div>
+              <span class="drink-tag">🌿 Saturday Special</span>
+            </div>
+            <div class="drink-toggle">+</div>
+          </div>
+          <div class="drink-expand">
+            <span class="expand-label">Ingredients</span>
+            <ul class="expand-list"><li>1 tsp ceremonial matcha</li><li>¾ cup oat milk</li><li>1 tsp tahini or sesame paste</li><li>½ tsp honey</li><li>Pinch of sea salt</li></ul>
+            <span class="expand-label">How to Make It</span>
+            <ol class="expand-steps"><li><span class="step-n">01</span><span>Whisk matcha with 2 tbsp warm water until frothy.</span></li><li><span class="step-n">02</span><span>Blend tahini into warmed oat milk.</span></li><li><span class="step-n">03</span><span>Combine, sweeten with honey, add salt.</span></li><li><span class="step-n">04</span><span>Pour over. Sit in the morning light. 🌿</span></li></ol>
+            <div class="expand-quote">"Matcha tastes like the version of yourself that has enough time." — Me3temed</div>
+          </div>
+        </div>
+
+        <div class="drink-card" onclick="toggleDrink(this)">
+          <div class="drink-card-top">
+            <div class="drink-icon">✨</div>
+            <div class="drink-info">
+              <div class="drink-name">Vanilla Coconut Steamer</div>
+              <div class="drink-desc">Creamy, sweet, celebratory — a Friday treat for a week well lived.</div>
+              <span class="drink-tag">✨ Friday Special</span>
+            </div>
+            <div class="drink-toggle">+</div>
+          </div>
+          <div class="drink-expand">
+            <span class="expand-label">Ingredients</span>
+            <ul class="expand-list"><li>1 cup coconut milk</li><li>1 tsp vanilla extract</li><li>1 tsp honey</li><li>Pinch of nutmeg</li><li>Pinch of sea salt</li></ul>
+            <span class="expand-label">How to Make It</span>
+            <ol class="expand-steps"><li><span class="step-n">01</span><span>Heat coconut milk over gentle heat.</span></li><li><span class="step-n">02</span><span>Whisk in vanilla, honey, nutmeg and sea salt.</span></li><li><span class="step-n">03</span><span>Froth until light and creamy.</span></li><li><span class="step-n">04</span><span>Pour into your favourite mug. You've earned this. ✨</span></li></ol>
+            <div class="expand-quote">"Fridays taste best when you let them be sweet." — Me3temed</div>
+          </div>
+        </div>
+
+        <div class="drink-card" onclick="toggleDrink(this)">
+          <div class="drink-card-top">
+            <div class="drink-icon">🫚</div>
+            <div class="drink-info">
+              <div class="drink-name">Ginger Persimmon Tea</div>
+              <div class="drink-desc">Bright, warming, gently sweet — autumn bottled and heated with care.</div>
+              <span class="drink-tag">🍂 Seasonal</span>
+            </div>
+            <div class="drink-toggle">+</div>
+          </div>
+          <div class="drink-expand">
+            <span class="expand-label">Ingredients</span>
+            <ul class="expand-list"><li>1 cup water</li><li>2 slices fresh ginger</li><li>1 small ripe persimmon, diced</li><li>1 tsp honey</li><li>Star anise or cinnamon stick</li></ul>
+            <span class="expand-label">How to Make It</span>
+            <ol class="expand-steps"><li><span class="step-n">01</span><span>Simmer ginger and spices in water 5 min.</span></li><li><span class="step-n">02</span><span>Add persimmon, simmer 3 more minutes.</span></li><li><span class="step-n">03</span><span>Strain into a warm mug, stir in honey.</span></li><li><span class="step-n">04</span><span>Sip slowly. Let the warmth do its work. 🍂</span></li></ol>
+            <div class="expand-quote">"Autumn always knew how to say goodbye beautifully." — Me3temed</div>
+          </div>
+        </div>
+
+      </div>
+      <p class="drinks-note">Every drink recipe also arrives in your morning letter 💌<br><a href="index.html#subscribe" style="color:var(--blue-mid); text-decoration:none; font-family:'Nunito',sans-serif; font-weight:700; font-size:13px;">Subscribe to receive yours →</a></p>
+    </div>
+  </div>
+
+  <!-- ─── DESSERTS ─── -->
+  <div class="menu-section" id="section-desserts">
+    <div class="container">
+      <div class="desserts-intro">
+        <span class="section-eyebrow">Dessert Menu · お菓子メニュー</span>
+        <h2 class="section-title">Japanese-Inspired <em>Sweets</em></h2>
+        <p style="font-size:15px; color:var(--text-soft); line-height:1.8; max-width:520px;">
+          Simple, thoughtful sweets that pair perfectly with your warm sip.
+          Each one made to be eaten slowly, without apology.
+        </p>
+      </div>
+      <div class="desserts-grid">
+
+        <div class="dessert-card">
+          <div class="dessert-visual">🍡</div>
+          <div class="dessert-body">
+            <div class="dessert-name">Mitarashi Dango</div>
+            <div class="dessert-jp">みたらし団子 · Sweet Soy Skewers</div>
+            <div class="dessert-desc">Soft rice flour dumplings glazed in a sweet, salty soy caramel. Chewy, warm, perfectly simple.</div>
+            <div class="dessert-tags"><span class="dessert-tag">🌿 Vegan</span><span class="dessert-tag">❄️ All Season</span><span class="dessert-tag">🍵 Classic Pairing</span></div>
+            <div class="dessert-pairing"><span class="pairing-label">Pairs With</span> Hojicha Honey Latte or Sakura Blossom Tea</div>
+          </div>
+        </div>
+
+        <div class="dessert-card">
+          <div class="dessert-visual">🍵</div>
+          <div class="dessert-body">
+            <div class="dessert-name">Matcha Nama Chocolate</div>
+            <div class="dessert-jp">抹茶生チョコ · Soft Matcha Truffles</div>
+            <div class="dessert-desc">Silky ganache squares dusted in ceremonial matcha. They melt the moment you let them. Rich, bitter, quietly perfect.</div>
+            <div class="dessert-tags"><span class="dessert-tag">✦ Signature</span><span class="dessert-tag">🍫 Rich</span><span class="dessert-tag">❄️ Winter Special</span></div>
+            <div class="dessert-pairing"><span class="pairing-label">Pairs With</span> Vanilla Coconut Steamer or Dark Chocolate Miso</div>
+          </div>
+        </div>
+
+        <div class="dessert-card">
+          <div class="dessert-visual">🌸</div>
+          <div class="dessert-body">
+            <div class="dessert-name">Sakura Mochi</div>
+            <div class="dessert-jp">桜餅 · Cherry Blossom Rice Cake</div>
+            <div class="dessert-desc">Pink mochi filled with sweet red bean paste, wrapped in a salted cherry leaf. Fleeting, beautiful, and tasting faintly of spring.</div>
+            <div class="dessert-tags"><span class="dessert-tag">🌸 Seasonal</span><span class="dessert-tag">🌿 Plant-Based</span></div>
+            <div class="dessert-pairing"><span class="pairing-label">Pairs With</span> Sakura Blossom Tea or Yuzu Brown Butter Milk</div>
+          </div>
+        </div>
+
+        <div class="dessert-card">
+          <div class="dessert-visual">🧈</div>
+          <div class="dessert-body">
+            <div class="dessert-name">Brown Butter Miso Cookies</div>
+            <div class="dessert-jp">味噌クッキー · Savoury-Sweet Crisps</div>
+            <div class="dessert-desc">Crisp-edged, chewy-centred cookies made with white miso and browned butter. Salty, nutty, impossible to eat just one.</div>
+            <div class="dessert-tags"><span class="dessert-tag">✦ Chef's Pick</span><span class="dessert-tag">🧈 Indulgent</span></div>
+            <div class="dessert-pairing"><span class="pairing-label">Pairs With</span> Cardamom Maple Milk or Matcha Sesame Latte</div>
+          </div>
+        </div>
+
+        <div class="dessert-card">
+          <div class="dessert-visual">🍂</div>
+          <div class="dessert-body">
+            <div class="dessert-name">Chestnut Dorayaki</div>
+            <div class="dessert-jp">栗どら焼き · Fluffy Pancake Sandwich</div>
+            <div class="dessert-desc">Two golden, honey-glazed pancakes sandwiching sweetened chestnut paste. Soft, autumnal, and deeply nostalgic.</div>
+            <div class="dessert-tags"><span class="dessert-tag">🍂 Autumn</span><span class="dessert-tag">🤍 Comfort</span></div>
+            <div class="dessert-pairing"><span class="pairing-label">Pairs With</span> Ginger Persimmon Tea or Hojicha Honey Latte</div>
+          </div>
+        </div>
+
+        <div class="dessert-card">
+          <div class="dessert-visual">❄️</div>
+          <div class="dessert-body">
+            <div class="dessert-name">Shiro An Yokan</div>
+            <div class="dessert-jp">白あん羊羹 · White Bean Jelly</div>
+            <div class="dessert-desc">A cool, set confection of white bean paste, gentle sweetness, and translucent beauty. The most Japanese of all the sweets — minimal, meditative, quietly extraordinary.</div>
+            <div class="dessert-tags"><span class="dessert-tag">🌿 Vegan</span><span class="dessert-tag">❄️ Winter</span><span class="dessert-tag">✦ Traditional</span></div>
+            <div class="dessert-pairing"><span class="pairing-label">Pairs With</span> Matcha Sesame Latte or Moon Milk Blend</div>
+          </div>
+        </div>
+
+        <div class="dessert-card">
+          <div class="dessert-visual">🍋</div>
+          <div class="dessert-body">
+            <div class="dessert-name">Yuzu Warabi Mochi</div>
+            <div class="dessert-jp">柚子わらび餅 · Citrus Bracken Jelly</div>
+            <div class="dessert-desc">Silky, trembling cubes of bracken starch jelly with a bright yuzu glaze and kinako dusting. Light, fresh, and impossibly delicate.</div>
+            <div class="dessert-tags"><span class="dessert-tag">🍊 Citrus</span><span class="dessert-tag">🌿 Vegan</span><span class="dessert-tag">✦ Delicate</span></div>
+            <div class="dessert-pairing"><span class="pairing-label">Pairs With</span> Yuzu Brown Butter Milk or Sakura Blossom Tea</div>
+          </div>
+        </div>
+
+        <div class="dessert-card">
+          <div class="dessert-visual">🌙</div>
+          <div class="dessert-body">
+            <div class="dessert-name">Black Sesame Shiratama</div>
+            <div class="dessert-jp">黒ごましらたま · Evening Dumplings</div>
+            <div class="dessert-desc">Small, bouncy rice dumplings made dark and nutty with black sesame, served in sweet ginger broth. A dessert for quiet evenings and unhurried spoons.</div>
+            <div class="dessert-tags"><span class="dessert-tag">🌙 Evening</span><span class="dessert-tag">🌿 Vegan</span><span class="dessert-tag">🌿 Warming</span></div>
+            <div class="dessert-pairing"><span class="pairing-label">Pairs With</span> Moon Milk Blend or Ginger Persimmon Tea</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="seasonal-band" id="desserts">
+        <h2>"Every sweet is a small act of gentleness — towards yourself and whoever you share it with."</h2>
+        <span>— Ahmed El Bourgy · Sakura Slice Café 🌸</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer style="background:#131c28; border-top:1px solid #1e2e3e; padding:36px 40px; text-align:center;">
+    <div style="font-family:'Nunito',sans-serif; font-weight:700; font-size:18px; color:#c8d8e8; margin-bottom:8px;">🌸 Sakura Slice Café</div>
+    <div style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14px; color:#445a70; margin-bottom:16px;">Slow sips, quiet thoughts & the grace of a gentle morning.</div>
+    <div style="font-size:12px; color:#2a3a4a;">© 2026 Ahmed El Bourgy · Sakura Slice Café 🌸 · All rights reserved</div>
+  </footer>
+
+  <script>
+    function switchTab(tab) {
+      document.querySelectorAll('.menu-section').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('section-' + tab).classList.add('active');
+      document.getElementById('tab-' + tab).classList.add('active');
+    }
+
+    function toggleDrink(card) {
+      const isOpen = card.classList.contains('open');
+      document.querySelectorAll('.drink-card.open').forEach(c => c.classList.remove('open'));
+      if (!isOpen) card.classList.add('open');
+    }
+
+    if (location.hash === '#desserts') {
+      switchTab('desserts');
+      setTimeout(() => document.getElementById('desserts')?.scrollIntoView({behavior:'smooth'}), 200);
+    }
+  </script>
+
+</body>
+</html>

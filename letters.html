@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Today's Letters · Sakura Slice Café 🌸</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream: #f4f8fc;
+      --border: #d0e4f4;
+      --blue-deep: #2a4a68;
+      --blue-mid: #4a7aaa;
+      --blue-light: #6a9ab8;
+      --blue-pale: #c0d8f0;
+      --text: #2a3a48;
+      --text-soft: #5a7a9a;
+      --text-muted: #8ab0cc;
+    }
+
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      background: var(--cream);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top:0; left:0; right:0; z-index:100;
+      background: rgba(244,248,252,0.9);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 40px; height: 64px;
+      display:flex; align-items:center; justify-content:space-between;
+    }
+
+    .nav-brand { font-family:'Nunito',sans-serif; font-weight:800; font-size:18px; color:var(--blue-deep); text-decoration:none; }
+    .nav-back { font-family:'Nunito',sans-serif; font-size:13px; font-weight:700; color:var(--blue-mid); text-decoration:none; letter-spacing:0.5px; }
+    .nav-back:hover { color:var(--blue-deep); }
+    .nav-jp { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:13px; color:var(--text-muted); }
+
+    /* ─── PAGE HEADER ─── */
+    .page-header {
+      padding: 110px 24px 60px;
+      text-align: center;
+      background: linear-gradient(180deg, #eef6ff, #f4f8fc);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .day-badge {
+      display: inline-block;
+      background: rgba(100,160,210,0.12);
+      border: 1px solid rgba(100,160,210,0.25);
+      border-radius: 50px;
+      padding: 6px 20px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--text-soft);
+      margin-bottom: 20px;
+    }
+
+    .page-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 6vw, 62px);
+      font-weight: 300;
+      color: var(--blue-deep);
+      line-height: 1.2;
+      margin-bottom: 14px;
+    }
+
+    .page-title em { font-style: italic; color: var(--blue-mid); }
+
+    .page-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 18px;
+      color: var(--text-soft);
+      max-width: 500px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* ─── TAB SWITCHER ─── */
+    .tab-bar {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      padding: 32px 24px 0;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 14px 20px;
+      border: 1px solid var(--border);
+      background: white;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.25s;
+    }
+
+    .tab-btn:first-child { border-radius: 16px 0 0 16px; border-right: none; }
+    .tab-btn:last-child  { border-radius: 0 16px 16px 0; }
+
+    .tab-btn.active {
+      background: var(--blue-deep);
+      color: white;
+      border-color: var(--blue-deep);
+    }
+
+    /* ─── LETTER CONTAINER ─── */
+    .letter-section { display: none; padding: 40px 24px 80px; }
+    .letter-section.active { display: block; }
+
+    /* ─── MORNING LETTER ─── */
+    .morning-card {
+      max-width: 640px;
+      margin: 0 auto;
+      background: linear-gradient(170deg, #fafcff 0%, #f5faff 55%, #f8fbff 100%);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(80,130,180,0.1);
+    }
+
+    .m-hero {
+      background: linear-gradient(160deg, #eef6ff 0%, #e4f0fa 60%, #e0eef8 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 44px 36px 36px;
+      text-align: center;
+    }
+
+    .m-glow {
+      width: 80px; height: 80px;
+      background: radial-gradient(circle, rgba(140,190,240,0.28) 0%, transparent 70%);
+      border-radius: 50%;
+      margin: 0 auto 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 46px;
+    }
+
+    .m-greeting {
+      font-family: 'Nunito', sans-serif;
+      font-size: 28px; font-weight: 800;
+      color: #2a4a68; line-height: 1.4; margin-bottom: 10px;
+    }
+
+    .m-greeting em { font-style: italic; color: var(--blue-mid); }
+
+    .m-tag {
+      display: inline-block;
+      background: rgba(80,140,200,0.1);
+      border: 1px solid rgba(80,140,200,0.22);
+      border-radius: 50px; padding: 5px 16px;
+      font-size: 11px; color: #5a7a9a;
+      letter-spacing: 2.5px; text-transform: uppercase;
+      font-family: 'Nunito',sans-serif; font-weight: 600;
+      margin-top: 4px;
+    }
+
+    .m-subline {
+      text-align: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-size: 14.5px;
+      color: #7a9ab8; padding: 16px 36px 0; line-height: 1.7;
+    }
+
+    .m-body { padding: 28px 36px 34px; }
+
+    .m-opening { font-size: 15.5px; line-height: 1.9; color: #3a5068; margin-bottom: 30px; }
+
+    .m-mascot-row {
+      display: table; width: 100%; margin-bottom: 30px;
+      background: #f5faff; border: 1px solid var(--border);
+      border-radius: 18px; padding: 16px;
+    }
+
+    .m-mascot-img { display:table-cell; vertical-align:middle; width:108px; padding-right:16px; }
+    .m-mascot-img img { width:96px; height:96px; object-fit:cover; border-radius:50%; border:2px solid rgba(100,160,220,0.4); box-shadow:0 4px 16px rgba(80,130,180,0.14); display:block; }
+    .m-mascot-text { display:table-cell; vertical-align:middle; }
+
+    .m-speech { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15.5px; color:#3a5a78; line-height:1.65; }
+    .m-attribution { display:block; margin-top:8px; font-size:11.5px; font-family:'DM Sans',sans-serif; font-style:normal; color:#8ab0cc; letter-spacing:1px; }
+
+    .m-divider { border:none; border-top:1px solid var(--border); margin:28px 0; }
+
+    .m-section-title {
+      font-family:'Nunito',sans-serif; font-size:12px; font-weight:700;
+      letter-spacing:2.5px; text-transform:uppercase; color:#5080a8;
+      margin-bottom:16px; display:flex; align-items:center; gap:10px;
+    }
+    .m-section-title::after { content:''; flex:1; height:1px; background:linear-gradient(to right,#c0d8f0,transparent); }
+
+    .m-prompt { border-radius:16px; padding:18px 20px; margin-bottom:12px; }
+    .m-prompt.light { background:#f5faff; border:1px solid var(--border); }
+    .m-prompt.frost { background:linear-gradient(135deg,#eef6ff,#e8f2fc); border:1px solid rgba(100,160,210,0.22); }
+
+    .m-prompt-label { font-size:11px; font-family:'Nunito',sans-serif; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#5080a8; margin-bottom:9px; display:block; }
+    .m-prompt-text { font-size:15px; line-height:1.75; color:#4a6880; }
+
+    .m-quote { background:#eef6ff; border-left:3px solid #90b8d8; border-radius:0 16px 16px 0; padding:20px 24px; margin:28px 0; }
+    .m-quote p { font-family:'Cormorant Garamond',serif; font-size:18px; font-style:italic; color:#3a5a78; line-height:1.7; }
+
+    .m-affirmation { text-align:center; background:linear-gradient(135deg,#eef6ff,#e8f2fc); border:1px solid rgba(100,160,210,0.22); border-radius:20px; padding:28px 24px; margin:28px 0; }
+    .m-affirmation-deco { font-size:24px; margin-bottom:12px; display:block; }
+    .m-affirmation p { font-family:'Cormorant Garamond',serif; font-size:20px; font-style:italic; color:#2a4a68; line-height:1.7; }
+    .m-affirmation-tag { display:inline-block; margin-top:14px; font-size:10.5px; letter-spacing:2px; text-transform:uppercase; color:#8ab0cc; }
+
+    .m-quest { background:linear-gradient(135deg,#eef6ff,#e4f0fa); border:2px dashed #b0cce4; border-radius:20px; padding:24px 26px; margin:28px 0; text-align:center; }
+    .m-quest-title { font-family:'Nunito',sans-serif; font-size:14px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:#3a6888; margin-bottom:12px; display:block; }
+    .m-quest-text { font-size:15px; line-height:1.85; color:#3a5068; }
+    .m-quest-text strong { color:#4a78a0; }
+
+    .m-drink { background:#f8fcff; border:1px solid var(--border); border-radius:20px; padding:26px 28px; margin:28px 0; }
+    .m-drink-header { font-family:'Nunito',sans-serif; font-size:18px; font-weight:700; color:#3a6888; margin-bottom:6px; text-align:center; }
+    .m-drink-sub { text-align:center; font-size:13.5px; color:#7a9ab8; margin-bottom:20px; font-style:italic; font-family:'Cormorant Garamond',serif; }
+    .m-drink-label { font-family:'Nunito',sans-serif; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#5080a8; margin-bottom:10px; margin-top:16px; display:block; }
+
+    .m-ingredient-list { list-style:none; padding:0; margin:0 0 8px; }
+    .m-ingredient-list li { font-size:14px; color:#3a5068; padding:6px 0; border-bottom:1px solid #ddeef8; display:flex; align-items:center; gap:10px; line-height:1.5; }
+    .m-ingredient-list li:last-child { border-bottom:none; }
+    .m-ingredient-list li::before { content:'·'; color:#90b8d8; font-size:20px; flex-shrink:0; }
+
+    .m-step-list { list-style:none; padding:0; margin:0; }
+    .m-step-list li { font-size:14px; color:#3a5068; padding:8px 0; border-bottom:1px solid #ddeef8; display:flex; gap:12px; line-height:1.6; }
+    .m-step-list li:last-child { border-bottom:none; }
+    .m-step-num { font-family:'Nunito',sans-serif; font-weight:800; font-size:13px; color:#5080a8; flex-shrink:0; width:20px; margin-top:1px; }
+
+    .m-drink-quote { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; color:#3a5a78; text-align:center; padding:14px 16px; background:#eef6ff; border-radius:12px; margin-top:18px; line-height:1.6; }
+
+    .m-ctas { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:28px; }
+
+    .m-footer { padding:26px 36px 32px; text-align:center; border-top:1px solid var(--border); }
+    .m-footer-brand { font-family:'Nunito',sans-serif; font-size:17px; font-weight:700; color:#5080a8; margin-bottom:6px; }
+    .m-footer-sub { font-size:12px; color:#8ab8d8; letter-spacing:0.8px; line-height:1.6; }
+    .m-footer-icons { font-size:19px; letter-spacing:7px; margin-top:14px; opacity:0.4; }
+
+    /* ─── EVENING CARD ─── */
+    .evening-card {
+      max-width: 640px; margin: 0 auto;
+      background: linear-gradient(170deg, #131c28 0%, #0f1720 55%, #111822 100%);
+      border: 1px solid #1e2e3e; border-radius: 28px; overflow: hidden;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.5);
+    }
+
+    .e-hero {
+      background: linear-gradient(180deg, #152030 0%, #0e1820 100%);
+      border-bottom: 1px solid #1c2c3c; padding: 44px 36px 36px; text-align: center;
+    }
+
+    .e-glow { width:80px; height:80px; background:radial-gradient(circle,rgba(100,150,200,0.16) 0%,transparent 70%); border-radius:50%; margin:0 auto 6px; display:flex; align-items:center; justify-content:center; font-size:44px; }
+
+    .e-greeting { font-family:'Nunito',sans-serif; font-size:29px; font-weight:700; color:#ddeeff; line-height:1.45; margin-bottom:10px; }
+    .e-greeting em { font-style:italic; color:#7aaace; }
+    .e-tag { display:inline-block; background:rgba(100,150,200,0.1); border:1px solid rgba(100,150,200,0.2); border-radius:50px; padding:5px 16px; font-size:11px; color:#7a9ab8; letter-spacing:2.5px; text-transform:uppercase; font-weight:500; margin-top:4px; font-family:'Nunito',sans-serif; }
+
+    .e-subline { text-align:center; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14px; color:#5a7a94; padding:16px 36px 0; line-height:1.6; }
+
+    .e-body { padding:28px 36px 34px; }
+    .e-opening { font-size:15.5px; line-height:1.9; color:#c8d8e8; margin-bottom:30px; }
+
+    .e-mascot-row { display:table; width:100%; margin-bottom:30px; background:#101820; border:1px solid #1e2e40; border-radius:18px; padding:16px; }
+    .e-mascot-img { display:table-cell; vertical-align:middle; width:108px; padding-right:16px; }
+    .e-mascot-img img { width:96px; height:96px; object-fit:cover; border-radius:50%; border:2px solid rgba(120,170,220,0.4); box-shadow:0 0 16px rgba(100,150,200,0.14); display:block; }
+    .e-mascot-text { display:table-cell; vertical-align:middle; }
+    .e-speech { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15.5px; color:#c8ddf0; line-height:1.65; }
+    .e-attribution { display:block; margin-top:8px; font-size:11.5px; font-family:'DM Sans',sans-serif; font-style:normal; color:#445a70; letter-spacing:1px; }
+
+    .e-divider { border:none; border-top:1px solid #161e28; margin:28px 0; }
+
+    .e-section-title { font-family:'Nunito',sans-serif; font-size:12px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:#6a9ab8; margin-bottom:16px; display:flex; align-items:center; gap:10px; }
+    .e-section-title::after { content:''; flex:1; height:1px; background:linear-gradient(to right,#1e3040,transparent); }
+
+    .e-prompt { border-radius:16px; padding:18px 20px; margin-bottom:12px; }
+    .e-prompt.cool { background:#101820; border:1px solid #1e2e40; }
+    .e-prompt.frost { background:linear-gradient(135deg,#121e2c,#101820); border:1px solid rgba(100,150,200,0.2); }
+
+    .e-prompt-label { font-size:11px; font-family:'Nunito',sans-serif; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#6a9ab8; margin-bottom:9px; display:block; }
+    .e-prompt-text { font-size:15px; line-height:1.75; color:#a8c0d4; }
+
+    .e-quote { background:#0e1620; border-left:3px solid #6a9ab8; border-radius:0 16px 16px 0; padding:20px 24px; margin:28px 0; }
+    .e-quote p { font-family:'Cormorant Garamond',serif; font-size:18px; font-style:italic; color:#c8ddf0; line-height:1.7; }
+
+    .e-affirmation { text-align:center; background:#0e1620; border:1px solid rgba(100,150,200,0.18); border-radius:20px; padding:28px 24px; margin:28px 0; }
+    .e-affirmation-deco { font-size:22px; margin-bottom:12px; display:block; opacity:0.6; }
+    .e-affirmation p { font-family:'Cormorant Garamond',serif; font-size:19px; font-style:italic; color:#c8ddf0; line-height:1.7; }
+    .e-affirmation-tag { display:inline-block; margin-top:14px; font-size:10.5px; letter-spacing:2px; text-transform:uppercase; color:#445a70; }
+
+    .e-winddown { list-style:none; margin:0; padding:0; }
+    .e-winddown li { display:flex; align-items:flex-start; gap:14px; padding:14px 0; border-bottom:1px solid #141e28; font-size:14.5px; color:#90aac0; line-height:1.65; }
+    .e-winddown li:last-child { border-bottom:none; }
+    .e-winddown-icon { font-size:20px; flex-shrink:0; margin-top:1px; width:28px; text-align:center; }
+
+    .e-story { background:#0c1420; border:1px solid #1c2c3c; border-radius:20px; padding:26px 28px; margin:28px 0; }
+    .e-story-header { font-family:'Nunito',sans-serif; font-size:17px; font-weight:700; color:#c8ddf0; margin-bottom:18px; text-align:center; letter-spacing:0.5px; }
+    .e-story p { font-size:14.5px; line-height:1.9; color:#7a9ab0; margin-bottom:13px; }
+    .e-story p:last-child { margin-bottom:0; }
+    .e-story em { color:#7aaace; font-style:italic; }
+
+    .e-cta-wrap { text-align:center; margin:34px 0 10px; }
+    .e-cta-btn { display:inline-block; background:linear-gradient(135deg,#4a7aa0,#6a9ac0); color:#0c1018 !important; text-decoration:none; font-family:'Nunito',sans-serif; font-weight:700; font-size:14px; letter-spacing:0.5px; padding:14px 32px; border-radius:50px; box-shadow:0 6px 24px rgba(80,130,180,0.28); }
+
+    .e-footer { padding:26px 36px 32px; text-align:center; border-top:1px solid #141e28; }
+    .e-footer-brand { font-family:'Nunito',sans-serif; font-size:17px; font-weight:700; color:#6a9ab8; margin-bottom:6px; }
+    .e-footer-sub { font-size:12px; color:#2a3a4a; letter-spacing:0.8px; line-height:1.6; }
+    .e-footer-icons { font-size:19px; letter-spacing:7px; margin-top:14px; opacity:0.45; }
+
+    /* ─── day content switcher ─── */
+    .day-content { display:none; }
+    .day-content.active { display:block; }
+
+    @media (max-width:640px) {
+      .m-body, .e-body { padding:20px 20px 28px; }
+      .m-hero, .e-hero { padding:32px 20px 28px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-brand">🌸 Sakura Slice Café</a>
+    <a href="index.html" class="nav-back">← Back to Café</a>
+    <span class="nav-jp">今日のお手紙</span>
+  </nav>
+
+  <div class="page-header">
+    <div class="day-badge" id="day-badge">Loading...</div>
+    <h1 class="page-title">Today's <em>Letters</em></h1>
+    <p class="page-sub" id="page-sub-text">Each day brings its own letter — morning warmth & evening stillness.</p>
+  </div>
+
+  <div class="tab-bar">
+    <button class="tab-btn active" id="tab-morning" onclick="switchTab('morning')">☀️ Morning Letter</button>
+    <button class="tab-btn" id="tab-evening" onclick="switchTab('evening')">🌙 Evening Letter</button>
+  </div>
+
+  <!-- MORNING SECTION -->
+  <div class="letter-section active" id="section-morning">
+    <!-- day content injected by JS -->
+    <div id="morning-content"></div>
+  </div>
+
+  <!-- EVENING SECTION -->
+  <div class="letter-section" id="section-evening">
+    <div id="evening-content"></div>
+  </div>
+
+  <script>
+    // ─── Day Data ───
+    const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    const dayJP = ['日曜日','月曜日','火曜日','水曜日','木曜日','金曜日','土曜日'];
+    const dayEmoji = ['☃️','🌿','🌸','🍵','✨','🌊','🍁'];
+    const dayJPMeaning = ['心を休ませる日','新しい週の始まり','前進する日','真ん中で息をつく','感謝の日','解放される日','自分自身のための日'];
+    const dayMeaningEN = ['A day to rest the heart','The beginning of something new','A day to keep moving','Halfway there — breathe','A day for gratitude','Let it all go','A day entirely for you'];
+
+    const morningOpenings = {
+      Sunday:    "Sunday arrives differently than every other morning. It doesn't knock urgently. It just opens — quietly, like a window you forgot was there, letting in air that smells faintly of rest and possibility.<br><br>Today, you are allowed to move slowly. To stretch time. To sip something warm and let your thoughts settle on their own without being asked to become anything useful.",
+      Monday:    "Monday arrives with the smell of possibility still wrapped around it — the whole week unheld, like a letter that hasn't been opened yet.<br><br>Before the week takes what it needs from you, take one quiet moment for yourself. You are allowed to begin gently. The best weeks start with intention, not urgency.",
+      Tuesday:   "Tuesday is the quiet middle child of the week — not the excitement of Monday, not the relief of Friday. It simply shows up and asks you to keep going.<br><br>And sometimes, just keeping going is the most courageous thing. Today you don't have to be inspired. You just have to be present.",
+      Wednesday: "Wednesday knows what it's like to be halfway somewhere. Neither here nor there — but that's where the most interesting views are.<br><br>Pause in the middle of this week and notice what you've already carried. Notice what you've already done. Halfway is still progress.",
+      Thursday:  "Thursday carries a quiet excitement — the weekend is close enough to feel but not so close you've stopped caring about today.<br><br>Let Thursday be its own thing. Something worth arriving to. You've made it this far, which means you'll make it the rest of the way.",
+      Friday:    "Friday tastes different. There's something lighter in it — a release that starts in your shoulders before your mind even knows the week is ending.<br><br>You've done enough. Whatever you didn't finish can wait. Tonight, let yourself arrive somewhere softer.",
+      Saturday:  "Saturday asks nothing of you except that you remember what rest feels like. Not productive rest. Not self-improvement rest. Just the plain, honest, necessary kind.<br><br>This morning, there's no agenda. Just you, this warmth, and all the unhurried hours stretched out like a favourite blanket."
+    };
+
+    const morningQuests = {
+      Sunday: { title: "Do One Thing Slowly Today", text: "Pick anything — eating, making your drink, walking, reading, even washing dishes. Do it at <strong>half your usual speed</strong>. Notice what you normally rush past." },
+      Monday: { title: "Set One Gentle Intention", text: "Not a to-do list. One word or sentence that describes how you want to <strong>feel</strong> by the end of this week. Write it down. Let it guide, not pressure." },
+      Tuesday: { title: "Find One Small Beauty", text: "Today, notice <strong>one specific thing</strong> you would have walked past without seeing. A texture, a light, a sound, a detail. Name it and let it matter." },
+      Wednesday: { title: "Send One Warm Word", text: "Message one person something <strong>genuine and unexpected</strong> — a memory, a gratitude, a simple 'I'm glad you exist.' It takes two minutes and lasts much longer." },
+      Thursday: { title: "Name What You're Proud Of", text: "Look back at your week so far and <strong>name one thing you did well</strong>. Not perfectly — well. Let yourself receive the credit without immediately deflecting it." },
+      Friday: { title: "Release One Thing", text: "Pick one worry, one half-finished task, or one thing you've been carrying all week and <strong>consciously put it down</strong>. It will still be there Monday if it matters. For now — let it go." },
+      Saturday: { title: "Make Something with Your Hands", text: "Cook, draw, arrange flowers, fold something, write a sentence in beautiful handwriting. <strong>Let your hands make something</strong> that wasn't there before. That's enough." }
+    };
+
+    const morningDrinks = {
+      Sunday:    { name: "🍁 Cardamom Maple Milk", sub: "Warm, lightly spiced, deeply comforting — a hug made drinkable 🍁✨", ingredients: ["1 cup milk — dairy or oat","1 tsp maple syrup","⅛ tsp ground cardamom","Pinch of cinnamon","Tiny splash of vanilla"], steps: ["Heat the milk gently over low heat — no rushing.","Stir in maple syrup, cardamom, cinnamon. Let spices bloom.","Add vanilla. Pour slowly into your favourite mug.","Sit somewhere soft. Hold it with both hands. Sip. ☕"], quote: '"Warmth is patience made drinkable." — Me3temed' },
+      Monday:    { name: "🍵 Hojicha Honey Latte", sub: "Toasted, earthy, grounding — the taste of beginning well 🍵", ingredients: ["1 tbsp hojicha powder","¾ cup steamed oat milk","1 tsp raw honey","Pinch of sea salt"], steps: ["Brew hojicha in ¼ cup hot water for 3 minutes.","Stir in honey until dissolved.","Steam oat milk and pour over slowly.","Finish with sea salt. A grounded Monday starts here. 🍵"], quote: '"Toasted mornings taste like permission to keep going." — Me3temed' },
+      Tuesday:   { name: "🌸 Sakura Blossom Tea", sub: "Delicate, floral — a cup that reminds you spring is always returning 🌸", ingredients: ["1 tbsp dried sakura blossoms","1 cup hot water ~80°C","½ tsp honey (optional)","Slice of lemon"], steps: ["If using salted blossoms, soak in cold water 5 min, drain.","Place blossoms in cup and pour over hot water.","Watch them bloom. Add honey and lemon if you wish.","Drink slowly and notice the quiet. 🌸"], quote: '"Even a single petal can carry the weight of spring." — Me3temed' },
+      Wednesday: { name: "🍫 Dark Chocolate Miso", sub: "Deep, complex — a cup for the middle of something brave 🍫", ingredients: ["1 cup oat milk","2 tbsp dark cocoa powder","1 tsp white miso paste","1 tsp maple syrup","Pinch of chili flakes"], steps: ["Whisk cocoa, miso, sweetener with 2 tbsp warm milk into a paste.","Heat remaining milk until just steaming.","Pour hot milk into paste, whisk smooth.","Top with chili flakes. Trust the process. 🍫"], quote: '"Depth needs contrast. Salt makes sweetness real." — Me3temed' },
+      Thursday:  { name: "🍊 Yuzu Brown Butter Milk", sub: "Citrus-bright, nutty — sunshine engineered into a cup ☀️", ingredients: ["1 cup whole milk","1 tsp unsalted butter","1 tsp yuzu juice","½ tsp honey","Pinch of vanilla"], steps: ["Brown butter in a pan over medium until nutty and golden.","Add milk, heat gently. Stir in honey and vanilla.","Remove from heat, add yuzu juice.","Pour into a warm mug. Breathe the citrus in first. ☀️"], quote: '"Some mornings need sunshine engineered into them." — Me3temed' },
+      Friday:    { name: "✨ Vanilla Coconut Steamer", sub: "Creamy, sweet, celebratory — a Friday treat for a week well done ✨", ingredients: ["1 cup coconut milk","1 tsp vanilla extract","1 tsp honey","Pinch of nutmeg","Pinch of sea salt"], steps: ["Heat coconut milk over gentle heat.","Whisk in vanilla, honey, nutmeg and sea salt.","Froth until light and creamy.","Pour into your most favourite mug. You've earned this. ✨"], quote: '"Fridays taste best when you let them be sweet." — Me3temed' },
+      Saturday:  { name: "🌿 Matcha Sesame Latte", sub: "Earthy, nutty, slow — brewed for a day that belongs to you 🌿", ingredients: ["1 tsp ceremonial matcha","¾ cup oat milk","1 tsp tahini or sesame paste","½ tsp honey","Pinch of sea salt"], steps: ["Whisk matcha with 2 tbsp warm water until frothy.","Blend or whisk tahini into warmed oat milk.","Combine, sweeten with honey, add salt.","Pour over. Sit in the morning light. 🌿"], quote: '"Matcha tastes like the version of yourself that has enough time." — Me3temed' }
+    };
+
+    const morningAffirmations = {
+      Sunday:    { deco:"❄️", text:"Today I move at the pace of something I love.<br>I do not need to earn this Sunday.<br>Rest is not a reward — it is a right.", tag:"Whisper it · or just let it be true quietly" },
+      Monday:    { deco:"🌿", text:"I begin this week as I am — not as I wish I were.<br>That is enough to start.", tag:"Say it before you check your phone" },
+      Tuesday:   { deco:"🌸", text:"I keep going not because I must<br>but because I am capable of more than I remember.", tag:"A gentle truth · for a quiet Tuesday" },
+      Wednesday: { deco:"🍵", text:"I am allowed to be unfinished and still be doing well.<br>Halfway is still movement.", tag:"Breathe it in · let Wednesday be enough" },
+      Thursday:  { deco:"✨", text:"I see how hard I have been trying.<br>I give myself the credit I freely give to others.", tag:"Read it slowly · and mean it" },
+      Friday:    { deco:"🌊", text:"I release what the week asked of me.<br>Tonight I am allowed to simply be.", tag:"Say it at 5pm · say it again at sundown" },
+      Saturday:  { deco:"🍁", text:"Nothing is required of me today except presence.<br>I am here. That is already something.", tag:"Let Saturday ask nothing of you" }
+    };
+
+    const morningReflections = {
+      Sunday:    [{ label:"What Does Rest Actually Look Like for You?", text:"Not what you think rest should look like — what does it actually feel like when you're truly resting? Name it honestly, then give yourself a version of it today." },{ label:"One Thing to Let Sunday Hold", text:"Is there something you've been carrying all week? Sunday is spacious enough to hold it without needing you to solve it." },{ label:"What Are You Looking Forward to This Week?", frost:true, text:"Before the week arrives, find one small thing in it you can genuinely look forward to. Naming it now gives Monday something warm to walk toward." }],
+      Monday:    [{ label:"What Would a Gentle Week Feel Like?", text:"Not what you want to achieve — what do you want to feel? Describe the version of this week that you'd look back on with warmth." },{ label:"What Are You Carrying Into Today?", text:"Is there something from the weekend — unfinished, unprocessed, unresolved — that you're quietly dragging into Monday? Name it so it has less power." },{ label:"One Permission for This Week", frost:true, text:"What's one thing you want to give yourself permission to do, feel, or skip this week? Write it like a small, private agreement with yourself." }],
+      Tuesday:   [{ label:"What Does 'Enough' Look Like Today?", text:"If today ends and you feel you did enough — what would have happened? Define enough for today so you'll know when you've arrived there." },{ label:"What's Quietly Going Well?", text:"Somewhere in your life right now, something is quietly working — a habit, a relationship, a skill. What is it? Let yourself notice it properly." },{ label:"Where Are You Being Too Hard on Yourself?", frost:true, text:"If a friend described their week the way you've been thinking about yours, what would you say to them? Say it to yourself instead." }],
+      Wednesday: [{ label:"What Have You Already Done?", text:"Before you list what remains — list what you've already done this week. Even small things count. Even showing up counts." },{ label:"What Does the Middle Feel Like?", text:"You're in the middle of the week, possibly the middle of several things at once. What is it like to be mid-something? Name it honestly." },{ label:"What Would Lighten Today?", frost:true, text:"If you could change one small thing about today — remove something, add something, do something differently — what would it be? Can you actually do it?" }],
+      Thursday:  [{ label:"What Are You Most Proud of This Week?", text:"Not the biggest thing. The truest thing. What moment or effort from this week, however small, deserves to be named and acknowledged?" },{ label:"Who Has Held You This Week?", text:"Someone showed up for you this week — in a big way or a tiny one. A text, a look, a presence. Who was it? Have you told them?" },{ label:"What Would Friday-You Thank Today-You For?", frost:true, text:"If tomorrow-you could send a message back, what small choice made today would they be most grateful for?" }],
+      Friday:    [{ label:"What Are You Ready to Let Go Of?", text:"What from this week — a frustration, a comparison, a moment that didn't go as hoped — are you willing to release before the weekend begins?" },{ label:"What Surprised You This Week?", text:"Something unexpected happened — big or small. A feeling, a moment, a person. What was it? What does it say about what you're noticing right now?" },{ label:"What Do You Want the Weekend to Feel Like?", frost:true, text:"Not a schedule. A feeling. What word or image comes to mind when you imagine the perfect version of this weekend?" }],
+      Saturday:  [{ label:"What Does Your Body Actually Need Today?", text:"Not what you planned, not what you should do — what does your body physically need right now? Sleep, movement, stillness, food, touch? Name it without judgment." },{ label:"What Have You Been Putting Off?", text:"Not a task — a feeling, a conversation, a decision. What have you been quietly avoiding? What would it feel like to take one small step toward it today?" },{ label:"What Would You Do If No One Was Watching?", frost:true, text:"If today had no audience, no one to report back to, no one to perform rest or productivity for — what would you actually do? Do some of that." }]
+    };
+
+    const eveningOpenings = {
+      Sunday:    "There's a particular kind of quiet that only winter evenings carry. The cold outside makes the warmth inside feel more deliberate — like something you chose, not something that just happened.<br><br>Tonight, you don't have to reach for anything. The day is behind you, folded up neatly like a letter you've already read.",
+      Monday:    "Monday is done. Whatever it asked of you — the early alarm, the mental effort of beginning again — you answered it.<br><br>Tonight, put Monday down carefully, like a book you've finished. It no longer needs anything from you.",
+      Tuesday:   "Tuesday asked you to keep going, and you did. That's the whole story, and it's a good one.<br><br>The evening arrives now to say: you can stop pushing. The effort is done. What's left is just the night, and the quiet, and whatever warmth you can find in it.",
+      Wednesday: "You made it to the middle and then kept going. Wednesday held a lot today, and so did you.<br><br>Now the evening opens up like a small clearing in a forest — just enough space to breathe, rest your weight, and remember that you don't have to carry the rest of the week tonight.",
+      Thursday:  "Thursday evening has a different quality — the week is nearly done, and you can feel it in the way the tension starts to soften around the edges.<br><br>Let the evening be a transition. Not all the way to rest yet — but the beginning of the exhale.",
+      Friday:    "Friday evening. The week has let you go.<br><br>There's a particular kind of permission in this moment — the whole weekend unscheduled, undemanding, yours. Breathe into it. You don't have to do anything with it yet. Just feel the weight lifting.",
+      Saturday:  "Saturday evening is its own soft thing — the day that was only yours is winding down, and the night asks very little except that you settle into it gently.<br><br>However you spent today was enough. Even if it was small, quiet, private, unremarkable. It was yours. That makes it significant."
+    };
+
+    const eveningReflections = {
+      Sunday:    [{ label:"The Shelf by the Door", text:"Imagine setting your day down on a small shelf by the door. What's one thing you'd like to leave on that shelf tonight?" },{ label:"A Small Forgiveness", text:"Is there something from today you've been holding against yourself? What would it feel like to forgive yourself for that — just for tonight?" },{ label:"What Warmth Felt Like Today", frost:true, text:"Even on cold days, warmth shows up in small places. Where did you find yours today?" }],
+      Monday:    [{ label:"What Monday Taught You", text:"Every Monday carries a small lesson inside it. What did today show you — about yourself, your work, your energy, your needs?" },{ label:"What You Handled", text:"Something came up today that required you. A decision, a difficulty, an interaction. How did you handle it? Be honest and generous with yourself." },{ label:"What Tomorrow Needs From You", frost:true, text:"Not a to-do list. One quality — patience, focus, gentleness, courage. What does tomorrow actually need from you?" }],
+      Tuesday:   [{ label:"The Thing You Kept Going For", text:"You kept going today. What — consciously or not — were you moving toward? Name the thing that was worth the effort." },{ label:"Where You Were Kind", text:"Somewhere today you were kind — to someone else or yourself. Even quietly. Even accidentally. Where was it?" },{ label:"What You're Leaving Behind", frost:true, text:"Is there something from today you're ready to leave at the door — a frustration, a comparison, a moment that didn't go well?" }],
+      Wednesday: [{ label:"Halfway Reflection", text:"You're halfway through the week. Not an evaluation — just a check-in. How are you actually doing, honestly, underneath all the doing?" },{ label:"A Moment of Softness", text:"There was at least one moment today that was softer than the rest — quieter, kinder, more human. What was it?" },{ label:"What Would Rest Look Like Tonight?", frost:true, text:"Real rest, not just the absence of work. What would it actually mean to rest tonight? What does your particular kind of rest look like?" }],
+      Thursday:  [{ label:"The Gift of Thursday Evening", text:"Thursday evening is underrated — close enough to the weekend to feel relieved, far enough to still appreciate the week. How are you receiving this particular evening?" },{ label:"What You're Grateful For", text:"Not a list — one specific, granular, real thing from today that you're grateful for. Not in theory. In practice." },{ label:"What Friday You Needs Tonight", frost:true, text:"Tomorrow-you will show up better if tonight-you takes care of something. Rest, preparation, a decision made, a conversation had. What is it?" }],
+      Friday:    [{ label:"What the Week Actually Was", text:"Not what you planned, not what you wish — what was this week, really? Name it in one honest sentence." },{ label:"Something You're Proud Of", text:"One thing from this week you can claim ownership of. Not just something that happened — something you did, chose, created, or survived." },{ label:"How to Begin the Weekend", frost:true, text:"What one thing, done tonight, would make you feel like the weekend has truly begun? Not productivity — ritual. What is yours?" }],
+      Saturday:  [{ label:"What Saturday Was For", text:"Saturdays are made for things that don't count as productivity. What did yours hold? And was it enough?" },{ label:"The Permission You Gave Yourself", text:"Did you give yourself any permission today — to rest, to play, to be unproductive, to be imperfect? What was it?" },{ label:"Sunday's First Wish", frost:true, text:"If you could set the tone for tomorrow with one small intention — what would it be? A word, a ritual, a mood. Plant it here." }]
+    };
+
+    const eveningAffirmations = {
+      Sunday:    { deco:"🕯️", text:"I am allowed to be unfinished and still be enough.<br>I release today without needing it to be different.<br>Tomorrow can hold what tonight cannot.", tag:"Breathe in · read it slowly · let it settle" },
+      Monday:    { deco:"🌙", text:"I began this week. That took something.<br>I honour what I started and release what I couldn't finish.", tag:"Monday done · be gentle with yourself" },
+      Tuesday:   { deco:"❄️", text:"I kept going today. That is its own kind of courage.<br>I rest now without needing to have done more.", tag:"Quiet truth for a Tuesday night" },
+      Wednesday: { deco:"🕯️", text:"I am in the middle of something and that is not failure.<br>The middle is still the story.", tag:"Wednesday is enough · so are you" },
+      Thursday:  { deco:"✨", text:"I see how far I've come this week.<br>The weekend is close. I let myself feel that.", tag:"Almost there · rest is earned and given" },
+      Friday:    { deco:"🌊", text:"The week is behind me.<br>I release it with gratitude and without grasping.<br>Tonight I begin to rest.", tag:"Say it and mean it · the week is done" },
+      Saturday:  { deco:"🌸", text:"Saturday asked for my presence, and I gave it.<br>Tomorrow begins gently. Tonight ends softly.", tag:"Let the weekend close like a good book" }
+    };
+
+    const eveningStories = {
+      Sunday:    { header:"📖 Me3temed's Winter Story", paragraphs:["In a town at the foot of a frost-covered mountain, there lived a clockmaker named Sable who repaired old, broken timepieces.","People came from miles away — not just because Sable was skilled, but because of what she always said when she handed a clock back: <em>\"I gave it a little rest. That's all it needed.\"</em>","One evening, a young man arrived with a pocket watch that had simply stopped. Sable examined it quietly, set it on velvet, and covered it with felt. <em>\"Come back in the morning,\"</em> she said.","He returned at dawn. She lifted the felt — and the watch was ticking.","<em>\"What did you do?\"</em> he breathed. She smiled: <em>\"Nothing. I let it stop trying for a while. Sometimes a mechanism doesn't need fixing. It needs permission to be still.\"</em>","<em>Tonight: You are not broken. You may simply need, like that small watch, a night of being still — and trusting that you will tick again by morning.</em>"] },
+      Monday:    { header:"📖 Me3temed's Monday Story", paragraphs:["There was once a gardener who could only grow one thing at a time.","Her neighbours laughed. Their gardens were wild and full. Hers had one plant, tended carefully, given everything.","But every year, her single flower won every prize at market. 'How?' they asked.","<em>'I start Monday with one thing worth caring about,'</em> she said. <em>'The rest follows.'</em>","<em>Tonight: You don't need to have done everything. You needed to have done something well. Did you? If so — that was enough for a Monday.</em>"] },
+      Tuesday:   { header:"📖 Me3temed's Tuesday Story", paragraphs:["A marathon runner was once asked which mile was hardest.","<em>'Mile two,'</em> she said. Everyone expected her to say the last mile.","<em>'Mile one you're still excited. The last mile you can see the end. But mile two — that's where you realize it's going to be long. And you decide to keep going anyway.'</em>","<em>Tonight: You are on mile two. You kept going. That's the whole story. That's actually the story.</em>"] },
+      Wednesday: { header:"📖 Me3temed's Wednesday Story", paragraphs:["There is a word in Japanese — <em>ma</em> — which means the pause between things. The space between notes that makes music. The gap between words that makes meaning.","Wednesday is ma. The pause in the middle of the week. Not absence — presence of a different kind.","<em>Tonight, be the pause. Be the breath between things. You don't have to be the crescendo right now.</em>"] },
+      Thursday:  { header:"📖 Me3temed's Thursday Story", paragraphs:["A letter writer once said she always left the last paragraph for the next day.","'But what if you forget what you wanted to say?' someone asked.","<em>'Then what I forgot,'</em> she said quietly, <em>'wasn't the most important part.'</em>","<em>Tonight: Tomorrow can hold the last paragraph. You've already written most of the week's best chapters.</em>"] },
+      Friday:    { header:"📖 Me3temed's Friday Story", paragraphs:["Every Friday evening, a fisherman would sit at the edge of the dock — not fishing, just sitting.","His apprentice once asked why. <em>'The fish will be there Monday,'</em> he said. <em>'Tonight the water is just water.'</em>","<em>Tonight: Let what you're good at simply be yours — unclaimed, unproductive, resting beside you like a skill that doesn't need to perform.</em>"] },
+      Saturday:  { header:"📖 Me3temed's Saturday Story", paragraphs:["A poet was asked how she found words.","<em>'I don't look for them on Saturdays,'</em> she said.","<em>'What do you do instead?'</em>","<em>'I live something worth writing about. Then Sunday, the words come on their own.'</em>","<em>Tonight: Whatever you lived today — rest in it. You don't need to process it or turn it into anything. Let Saturday be raw material, not a finished product.</em>"] }
+    };
+
+    const today = new Date();
+    const dayName = days[today.getDay()];
+    const dayIndex = today.getDay();
+
+    // Set page header
+    document.getElementById('day-badge').textContent = `${dayEmoji[dayIndex]} ${dayName} · ${dayJP[dayIndex]}`;
+    document.getElementById('page-sub-text').textContent = `${dayMeaningEN[dayIndex]} — ${dayJPMeaning[dayIndex]}`;
+
+    // ─── Build Morning Card ───
+    function buildMorning(day) {
+      const opening = morningOpenings[day];
+      const reflections = morningReflections[day];
+      const quest = morningQuests[day];
+      const drink = morningDrinks[day];
+      const affirmation = morningAffirmations[day];
+
+      const reflectHTML = reflections.map(r => `
+        <div class="m-prompt ${r.frost ? 'frost' : 'light'}">
+          <span class="m-prompt-label">✦ ${r.label}</span>
+          <div class="m-prompt-text">${r.text}</div>
+        </div>`).join('');
+
+      const ingredientsHTML = drink.ingredients.map(i => `<li>${i}</li>`).join('');
+      const stepsHTML = drink.steps.map((s,i) => `<li><span class="m-step-num">0${i+1}</span><span>${s}</span></li>`).join('');
+
+      return `
+      <div class="morning-card">
+        <div class="m-hero">
+          <div class="m-glow">${dayEmoji[dayIndex]}</div>
+          <div class="m-greeting">おはようございます！<br><em>${dayName} Morning</em> 🤍</div>
+          <div class="m-tag">${dayJP[dayIndex]} · ${dayMeaningEN[dayIndex]}</div>
+        </div>
+        <div class="m-subline">${dayJPMeaning[dayIndex]}。<br><span style="font-size:13px;color:#8ab0cc;">${dayMeaningEN[dayIndex]}.</span></div>
+        <div class="m-body">
+          <p class="m-opening">${opening}</p>
+          <div class="m-mascot-row">
+            <div class="m-mascot-img"><img src="https://drive.google.com/uc?export=view&id=1SkKI0qiRe1yeGLPJCFkSVHRKSnCbz8q6" alt="Me3temed"></div>
+            <div class="m-mascot-text">
+              <div class="m-speech">"Slow mornings grow the strongest roots. Don't rush the part of the day that belongs only to you."<span class="m-attribution">— Me3temed ❄️</span></div>
+            </div>
+          </div>
+          <hr class="m-divider">
+          <div class="m-section-title">❄️ ${dayName} Morning Reflections</div>
+          ${reflectHTML}
+          <hr class="m-divider">
+          <div class="m-quote"><p>"The morning asks only this: that you arrive inside it." — Me3temed ☕</p></div>
+          <div class="m-section-title">🤍 ${dayName} Morning Affirmation</div>
+          <div class="m-affirmation">
+            <span class="m-affirmation-deco">${affirmation.deco}</span>
+            <p>${affirmation.text}</p>
+            <span class="m-affirmation-tag">${affirmation.tag}</span>
+          </div>
+          <hr class="m-divider">
+          <div class="m-section-title">🧭 Me3temed's ${dayName} Quest</div>
+          <div class="m-quest">
+            <span class="m-quest-title">✦ ${quest.title} ✦</span>
+            <div class="m-quest-text">${quest.text}</div>
+          </div>
+          <hr class="m-divider">
+          <div class="m-section-title">☕ Drink of the Day</div>
+          <div class="m-drink">
+            <div class="m-drink-header">${drink.name}</div>
+            <div class="m-drink-sub">${drink.sub}</div>
+            <span class="m-drink-label">✦ Ingredients</span>
+            <ul class="m-ingredient-list">${ingredientsHTML}</ul>
+            <span class="m-drink-label">✦ How to Make It</span>
+            <ol class="m-step-list">${stepsHTML}</ol>
+            <div class="m-drink-quote">${drink.quote}</div>
+          </div>
+          <div class="m-ctas">
+            <a href="https://open.spotify.com/playlist/37i9dQZF1DX2vYju3i0lNX" class="btn-primary" style="font-size:13px;padding:12px 24px;">🎵 Morning Playlist</a>
+            <a href="https://docs.google.com/document/d/1rLakqh3VjtNcJrs0s2436LTrJhRiGDMK/edit?usp=sharing" class="btn-ghost" style="font-size:13px;padding:11px 22px;">📓 Open Journal</a>
+          </div>
+        </div>
+        <div class="m-footer">
+          <div class="m-footer-brand">Sakura Slice Café 🌸</div>
+          <div class="m-footer-sub">Slow sips, quiet thoughts & the grace of a gentle morning 💌</div>
+          <div class="m-footer-icons">❄️ ☃️ ☕ 🤍 🌸</div>
+        </div>
+      </div>`;
+    }
+
+    // ─── Build Evening Card ───
+    function buildEvening(day) {
+      const opening = eveningOpenings[day];
+      const reflections = eveningReflections[day];
+      const affirmation = eveningAffirmations[day];
+      const story = eveningStories[day];
+
+      const reflectHTML = reflections.map(r => `
+        <div class="e-prompt ${r.frost ? 'frost' : 'cool'}">
+          <span class="e-prompt-label">✦ ${r.label}</span>
+          <div class="e-prompt-text">${r.text}</div>
+        </div>`).join('');
+
+      const storyHTML = story.paragraphs.map(p => `<p>${p}</p>`).join('');
+
+      return `
+      <div class="evening-card">
+        <div class="e-hero">
+          <div class="e-glow">❄️</div>
+          <div class="e-greeting">Good Evening 🌙<br><em>${dayName} こんばんは</em></div>
+          <div class="e-tag">still · quiet · held by the night</div>
+        </div>
+        <div class="e-subline">夜の静けさは、心をやさしくほどく。<br><span style="font-size:13px;color:#4a6a80;">Night's stillness gently unties the knots your day left behind.</span></div>
+        <div class="e-body">
+          <p class="e-opening">${opening}</p>
+          <div class="e-mascot-row">
+            <div class="e-mascot-img"><img src="https://drive.google.com/uc?export=view&id=11rVw8ECWjrppf2-K6fPohXwCemrROeNY" alt="Me3temed"></div>
+            <div class="e-mascot-text">
+              <div class="e-speech">"The things you didn't finish today — they are not failures. They are simply tomorrow's first act of kindness to yourself."<span class="e-attribution">— Me3temed ❄️</span></div>
+            </div>
+          </div>
+          <hr class="e-divider">
+          <div class="e-section-title">❄️ ${dayName} Evening Reflections</div>
+          ${reflectHTML}
+          <hr class="e-divider">
+          <div class="e-quote"><p>"Rest is not what happens after a good day. It is what makes tomorrow possible." — Me3temed ❄️</p></div>
+          <div class="e-section-title">🤍 Tonight's Affirmation</div>
+          <div class="e-affirmation">
+            <span class="e-affirmation-deco">${affirmation.deco}</span>
+            <p>${affirmation.text}</p>
+            <span class="e-affirmation-tag">${affirmation.tag}</span>
+          </div>
+          <hr class="e-divider">
+          <div class="e-section-title">☕ Winter Wind-Down Rituals</div>
+          <ul class="e-winddown">
+            <li><span class="e-winddown-icon">☕</span><span>Make something warm to drink and wrap both hands around the mug. Before your first sip, take one long breath. Let the warmth travel inward.</span></li>
+            <li><span class="e-winddown-icon">🧸</span><span>Find something soft to hold. Let your body register: the day is done. You are safe. You can soften now.</span></li>
+            <li><span class="e-winddown-icon">📝</span><span>Write one line you wish someone would say to you tonight — then give it to yourself. Let it count as much as it would if someone else had said it.</span></li>
+            <li><span class="e-winddown-icon">🌬️</span><span>Try box breathing: inhale 4 counts, hold 4, exhale 4, hold 4. Repeat three times. The night already knows it's time to be still.</span></li>
+            <li><span class="e-winddown-icon">🌙</span><span>Dim everything — screens, lights, thoughts. You don't need to fill this silence. Just let it hold you for a while.</span></li>
+          </ul>
+          <hr class="e-divider">
+          <div class="e-story">
+            <div class="e-story-header">${story.header}</div>
+            ${storyHTML}
+          </div>
+          <div class="e-cta-wrap">
+            <a href="https://docs.google.com/document/d/1rLakqh3VjtNcJrs0s2436LTrJhRiGDMK/edit?usp=sharing" class="e-cta-btn">📖 Open Your Night Journal</a>
+          </div>
+        </div>
+        <div class="e-footer">
+          <div class="e-footer-brand">Sakura Slice Café 🌸</div>
+          <div class="e-footer-sub">With snowlight, cocoa warmth & a gentle hush ❄️☕<br>Sent with care, just for you 🤍</div>
+          <div class="e-footer-icons">🌙 ❄️ 🕯️ ☕ 🌸</div>
+        </div>
+      </div>`;
+    }
+
+    // Inject content
+    document.getElementById('morning-content').innerHTML = buildMorning(dayName);
+    document.getElementById('evening-content').innerHTML = buildEvening(dayName);
+
+    // Tab switching
+    function switchTab(tab) {
+      document.querySelectorAll('.letter-section').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('section-' + tab).classList.add('active');
+      document.getElementById('tab-' + tab).classList.add('active');
+    }
+
+    // Auto-switch to evening if after 5pm
+    const hour = new Date().getHours();
+    if (hour >= 17) switchTab('evening');
+
+    // Handle hash
+    if (location.hash === '#evening') switchTab('evening');
+    if (location.hash === '#morning') switchTab('morning');
+  </script>
+
+</body>
+</html>
