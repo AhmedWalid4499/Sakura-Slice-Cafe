@@ -1113,7 +1113,7 @@
         <p class="section-sub" style="margin:0 auto 4px;text-align:center;">A morning letter at sunrise. An evening letter at dusk. Both arriving like a quiet knock — gentle, warm, just for you.</p>
         <div class="subscribe-form">
           <input type="email" class="subscribe-input" placeholder="your@email.com">
-          <button class="btn-primary" onclick="this.textContent='🌸 登録完了!'" data-en="🌸 Subscribe" data-jp="🌸 登録する">🌸 Subscribe</button>
+          <button class="btn-primary" id="subscribe-btn" onclick="this.textContent='🌸 登録完了!'; this.setAttribute('data-subscribed','true'); this.disabled=true;" data-en="🌸 Subscribe" data-jp="🌸 登録する">🌸 Subscribe</button>
         </div>
         <p class="subscribe-note" data-en="No noise, no ads — only softness. Unsubscribe any time. 🤍" data-jp="雑音なし、広告なし — ただ優しさだけ。いつでも登録解除できます。🤍">No noise, no ads — only softness. Unsubscribe any time. 🤍</p>
       </div>
@@ -1298,17 +1298,26 @@
     (function(){
       const KEY = 'sakura_lang';
       function getLang() { return localStorage.getItem(KEY) || 'en'; }
+
       function applyLang(lang) {
         localStorage.setItem(KEY, lang);
+        const isJP = lang === 'jp';
+
+        // Translate all data-en/data-jp elements
+        // Skip: elements with data-no-translate, the subscribe button (has special onclick state)
         document.querySelectorAll('[data-en]').forEach(el => {
-          const t = lang === 'jp' ? el.getAttribute('data-jp') : el.getAttribute('data-en');
+          // Don't overwrite the subscribe button if it's already been clicked
+          if (el.hasAttribute('data-subscribed')) return;
+          const t = isJP ? el.getAttribute('data-jp') : el.getAttribute('data-en');
           if (t !== null) el.innerHTML = t;
         });
+
+        // Update globe button state
         document.querySelectorAll('.lang-globe-btn').forEach(btn => btn.setAttribute('data-active-lang', lang));
         const lbl = document.getElementById('nav-lang-label');
-        if (lbl) lbl.textContent = lang === 'jp' ? 'English' : '日本語';
-        // Sync the About section language toggle too
-        const isJP = lang === 'jp';
+        if (lbl) lbl.textContent = isJP ? 'English' : '日本語';
+
+        // Sync About section bilingual blocks
         const bodyEN = document.getElementById('about-body-en');
         const bodyJP = document.getElementById('about-body-jp');
         const valEN  = document.getElementById('about-values-en');
@@ -1317,17 +1326,27 @@
         if (bodyJP) bodyJP.style.display = isJP ? '' : 'none';
         if (valEN)  valEN.style.display  = isJP ? 'none' : '';
         if (valJP)  valJP.style.display  = isJP ? '' : 'none';
+
+        // Sync the About section language toggle buttons
         const btnEN = document.getElementById('btn-en');
         const btnJP = document.getElementById('btn-jp');
         if (btnEN) btnEN.classList.toggle('active', !isJP);
         if (btnJP) btnJP.classList.toggle('active', isJP);
       }
+
       window.SAKURA_LANG = {
         toggle: function() { applyLang(getLang() === 'jp' ? 'en' : 'jp'); },
         get: getLang,
         apply: applyLang,
-        init: function() { applyLang(getLang()); }
+        // init only applies lang if it was explicitly set to JP — English is the default HTML state
+        init: function() {
+          const saved = localStorage.getItem(KEY);
+          if (saved === 'jp') applyLang('jp');
+          // If English (or nothing saved), HTML is already in English — do nothing, no flash
+        }
       };
+
+      // Run as early as possible to avoid flash of wrong language
       document.addEventListener('DOMContentLoaded', function() { SAKURA_LANG.init(); });
     })();
   </script>
