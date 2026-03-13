@@ -935,8 +935,9 @@
     <ul class="nav-links">
       <li><a href="#about" data-en="About" data-jp="について">About</a></li>
       <li><a href="#emails" data-en="Letters" data-jp="お手紙">Letters</a></li>
-      <li><a href="#menu" data-en="Menu" data-jp="メニュー">Menu</a></li>
+      <li><a href="menu.html" data-en="Menu" data-jp="メニュー">Menu</a></li>
       <li><a href="#mascot" data-en="Me3temed" data-jp="メ3テムド">Me3temed</a></li>
+      <li><a href="me3temed.html" data-en="Me3temed's Corner" data-jp="メ3テムドの隅">Me3temed's Corner</a></li>
       <li><a href="#about-me" data-en="Owner" data-jp="オーナー">Owner</a></li>
       <li><a href="#guestbook" data-en="Guestbook" data-jp="ゲストブック">Guestbook</a></li>
       <li><a href="#subscribe" data-en="Subscribe" data-jp="登録する">Subscribe</a></li>
@@ -1126,173 +1127,52 @@
     <span>— Me3temed · Sakura Slice Café ❄️</span>
   </div>
 
-  <!-- MENU PREVIEW -->
-  <section id="menu">
+  <!-- MENU & DESSERTS CTA -->
+  <section id="menu" style="padding:80px 24px;">
     <div class="container">
-      <div class="menu-intro reveal">
+      <div class="menu-intro reveal" style="display:flex;align-items:flex-start;justify-content:space-between;gap:40px;flex-wrap:wrap;margin-bottom:52px;">
         <div>
-          <span class="section-eyebrow" data-en="Drink Menu · ドリンクメニュー" data-jp="ドリンクメニュー">Drink Menu · ドリンクメニュー</span>
-          <h2 class="section-title" data-en="Seasonal <em>Warm Sips</em>" data-jp="季節の<em>温かい一杯</em>">Seasonal <em>Warm Sips</em></h2>
+          <span class="section-eyebrow" data-en="Our Menu · メニュー" data-jp="メニュー">Our Menu · メニュー</span>
+          <h2 class="section-title" data-en="Seasonal <em>Drinks</em><br>&amp; Japanese <em>Sweets</em>" data-jp="季節の<em>ドリンク</em><br>&amp; 日本の<em>スイーツ</em>">Seasonal <em>Drinks</em><br>&amp; Japanese <em>Sweets</em></h2>
         </div>
-        <div>
-          <p class="section-sub" style="max-width:340px;">
-            Simple, soulful drinks for cozy days — click any card for the full recipe.
-          </p>
-          <div style="margin-top:16px;">
-            <a href="menu.html" class="btn-primary" style="font-size:13px; padding:11px 24px;">🍽️ Full Menu &amp; Desserts →</a>
-          </div>
-        </div>
+        <p class="section-sub" style="max-width:340px;align-self:flex-end;" data-en="Nine seasonal warm sips. Eight Japanese-inspired desserts. Every recipe crafted with care and a quiet kind of love." data-jp="9種類の季節の温かい飲み物。8種類の日本風デザート。すべてのレシピは丁寧に、静かな愛情を込めて作られています。">Nine seasonal warm sips. Eight Japanese-inspired desserts. Every recipe crafted with care and a quiet kind of love.</p>
       </div>
-      <div class="menu-grid reveal">
+      <div class="reveal" style="display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:700px;margin:0 auto;">
+        <a href="menu.html" style="text-decoration:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;background:linear-gradient(160deg,#fafcff,#eef6ff);border:1px solid var(--border);border-radius:24px;padding:44px 28px;text-align:center;transition:transform 0.25s,box-shadow 0.25s;" onmouseover="this.style.transform='translateY(-5px)';this.style.boxShadow='0 20px 50px rgba(80,130,180,0.15)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+          <span style="font-size:52px;">☕</span>
+          <div style="font-family:'Nunito',sans-serif;font-weight:800;font-size:18px;color:var(--blue-deep);" data-en="Drink Menu" data-jp="ドリンクメニュー">Drink Menu</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;color:var(--text-soft);" data-en="9 seasonal warm sips" data-jp="9種類の季節の飲み物">9 seasonal warm sips</div>
+          <div style="margin-top:8px;display:inline-block;background:var(--blue-deep);color:white;font-family:'Nunito',sans-serif;font-weight:700;font-size:12px;letter-spacing:1px;padding:8px 22px;border-radius:50px;" data-en="View Recipes →" data-jp="レシピを見る →">View Recipes →</div>
+        </a>
+        <a href="menu.html#desserts" style="text-decoration:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;background:linear-gradient(160deg,#fafcff,#eef6ff);border:1px solid var(--border);border-radius:24px;padding:44px 28px;text-align:center;transition:transform 0.25s,box-shadow 0.25s;" onmouseover="this.style.transform='translateY(-5px)';this.style.boxShadow='0 20px 50px rgba(80,130,180,0.15)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+          <span style="font-size:52px;">🍡</span>
+          <div style="font-family:'Nunito',sans-serif;font-weight:800;font-size:18px;color:var(--blue-deep);" data-en="Dessert Menu" data-jp="デザートメニュー">Dessert Menu</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;color:var(--text-soft);" data-en="8 Japanese-inspired sweets" data-jp="8種類の日本風スイーツ">8 Japanese-inspired sweets</div>
+          <div style="margin-top:8px;display:inline-block;background:var(--blue-deep);color:white;font-family:'Nunito',sans-serif;font-weight:700;font-size:12px;letter-spacing:1px;padding:8px 22px;border-radius:50px;" data-en="Explore Sweets →" data-jp="スイーツを見る →">Explore Sweets →</div>
+        </a>
+      </div>
+    </div>
+  </section>
 
-        <div class="menu-item" onclick="toggleMenu(this)">
-          <span class="menu-item-icon">🍁</span>
-          <div class="menu-item-name">Cardamom Maple Milk</div>
-          <div class="menu-item-desc">Warm, lightly spiced, deeply comforting — a hug made drinkable.</div>
-          <span class="menu-item-tag">☕ This Sunday · tap for recipe</span>
-          <div class="menu-expand">
-            <span class="expand-section-label">Ingredients</span>
-            <ul class="expand-ingredients">
-              <li>1 cup milk — dairy or oat</li>
-              <li>1 tsp maple syrup</li>
-              <li>⅛ tsp ground cardamom</li>
-              <li>Pinch of cinnamon</li>
-              <li>Tiny splash of vanilla</li>
-            </ul>
-            <span class="expand-section-label">How to Make It</span>
-            <ol class="expand-steps">
-              <li><span class="expand-step-num">01</span><span>Heat milk gently over low heat — no rushing.</span></li>
-              <li><span class="expand-step-num">02</span><span>Stir in maple syrup, cardamom, cinnamon. Let spices bloom.</span></li>
-              <li><span class="expand-step-num">03</span><span>Add vanilla, pour into your favourite mug.</span></li>
-              <li><span class="expand-step-num">04</span><span>Sit somewhere soft. Hold with both hands. Sip slowly. ☕</span></li>
-            </ol>
-            <div class="expand-quote">"Warmth is patience made drinkable." — Me3temed</div>
-          </div>
+  <!-- ME3TEMED'S CORNER CTA -->
+  <section id="me3temed-corner" style="padding:80px 24px; background:linear-gradient(180deg,var(--cream),#eaf2fa);">
+    <div class="container">
+      <div class="reveal" style="max-width:780px;margin:0 auto;background:linear-gradient(160deg,#0c1828,#111e30);border:1px solid #1e3050;border-radius:32px;padding:56px 52px;display:flex;align-items:center;gap:44px;overflow:hidden;position:relative;">
+        <!-- Stars deco -->
+        <div style="position:absolute;top:20px;right:30px;font-size:11px;color:rgba(100,160,210,0.2);letter-spacing:6px;">✦ ✦ ✦ ✦ ✦</div>
+        <div style="position:absolute;bottom:20px;left:30px;font-size:11px;color:rgba(100,160,210,0.12);letter-spacing:6px;">❄️ · · · 🌸</div>
+        <!-- Owl -->
+        <div style="flex-shrink:0;text-align:center;">
+          <div style="font-size:80px;line-height:1;filter:drop-shadow(0 0 20px rgba(80,140,220,0.3));">🦉</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;color:#2a5a7a;margin-top:8px;">Me3temed ❄️</div>
         </div>
-
-        <div class="menu-item" onclick="toggleMenu(this)">
-          <span class="menu-item-icon">🍵</span>
-          <div class="menu-item-name">Hojicha Honey Latte</div>
-          <div class="menu-item-desc">Toasted, earthy, soft — the taste of a slow Japanese morning.</div>
-          <span class="menu-item-tag">❄️ Winter Favourite · tap for recipe</span>
-          <div class="menu-expand">
-            <span class="expand-section-label">Ingredients</span>
-            <ul class="expand-ingredients">
-              <li>1 tbsp hojicha powder or 2 tsp loose leaf</li>
-              <li>¾ cup steamed oat milk</li>
-              <li>1 tsp raw honey</li>
-              <li>Pinch of sea salt</li>
-            </ul>
-            <span class="expand-section-label">How to Make It</span>
-            <ol class="expand-steps">
-              <li><span class="expand-step-num">01</span><span>Brew hojicha in ¼ cup hot water for 3 minutes.</span></li>
-              <li><span class="expand-step-num">02</span><span>Stir in honey until dissolved.</span></li>
-              <li><span class="expand-step-num">03</span><span>Steam or froth oat milk and pour over.</span></li>
-              <li><span class="expand-step-num">04</span><span>Finish with a tiny pinch of sea salt. 🍵</span></li>
-            </ol>
-            <div class="expand-quote">"Toasted mornings taste like permission to slow down." — Me3temed</div>
-          </div>
+        <!-- Text -->
+        <div style="flex:1;">
+          <span style="font-family:'Nunito',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#2a5a7a;display:block;margin-bottom:12px;" data-en="Me3temed's Corner · メ3テムドの隅" data-jp="メ3テムドの隅">Me3temed's Corner · メ3テムドの隅</span>
+          <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(26px,4vw,38px);font-weight:300;color:#c0d8f0;line-height:1.25;margin-bottom:14px;" data-en="Bedtime <em style='font-style:italic;color:#6aaad8;'>stories</em>,<br>affirmations & soft rituals" data-jp="おやすみ<em style='font-style:italic;color:#6aaad8;'>お話</em>、<br>言葉と就寝前の儀式">Bedtime <em style="font-style:italic;color:#6aaad8;">stories</em>,<br>affirmations & soft rituals</h2>
+          <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16px;color:#3a6a8a;line-height:1.7;margin-bottom:24px;" data-en="Every night, Me3temed waits with a quiet story, a gentle affirmation, and rituals to carry you into sleep." data-jp="毎晩、メ3テムドは静かなお話、優しい言葉、眠りにつくための儀式を持って待っています。">Every night, Me3temed waits with a quiet story, a gentle affirmation, and rituals to carry you into sleep.</p>
+          <a href="me3temed.html" style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#2a5090,#3a70b0);color:white;text-decoration:none;font-family:'Nunito',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.5px;padding:14px 28px;border-radius:50px;box-shadow:0 8px 28px rgba(40,90,160,0.35);transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 14px 36px rgba(40,90,160,0.45)'" onmouseout="this.style.transform='';this.style.boxShadow='0 8px 28px rgba(40,90,160,0.35)'" data-en="🌙 Enter Me3temed's Corner" data-jp="🌙 メ3テムドの隅へ">🌙 Enter Me3temed's Corner</a>
         </div>
-
-        <div class="menu-item" onclick="toggleMenu(this)">
-          <span class="menu-item-icon">🌸</span>
-          <div class="menu-item-name">Sakura Blossom Tea</div>
-          <div class="menu-item-desc">Delicate floral warmth. A cup that smells like springtime longing.</div>
-          <span class="menu-item-tag">🌸 Classic · tap for recipe</span>
-          <div class="menu-expand">
-            <span class="expand-section-label">Ingredients</span>
-            <ul class="expand-ingredients">
-              <li>1 tbsp dried sakura blossoms (salted or plain)</li>
-              <li>1 cup hot water — not boiling, ~80°C</li>
-              <li>½ tsp honey (optional)</li>
-              <li>Slice of lemon</li>
-            </ul>
-            <span class="expand-section-label">How to Make It</span>
-            <ol class="expand-steps">
-              <li><span class="expand-step-num">01</span><span>If using salted blossoms, soak in cold water 5 min, then drain.</span></li>
-              <li><span class="expand-step-num">02</span><span>Place blossoms in your cup and pour over hot water.</span></li>
-              <li><span class="expand-step-num">03</span><span>Watch them bloom. Add honey and lemon if you wish.</span></li>
-              <li><span class="expand-step-num">04</span><span>Drink slowly and notice the quiet. 🌸</span></li>
-            </ol>
-            <div class="expand-quote">"Even a single petal can carry the weight of spring." — Me3temed</div>
-          </div>
-        </div>
-
-        <div class="menu-item" onclick="toggleMenu(this)">
-          <span class="menu-item-icon">🍫</span>
-          <div class="menu-item-name">Dark Chocolate Miso</div>
-          <div class="menu-item-desc">Deep, complex, gently salty. Unexpected and unforgettable.</div>
-          <span class="menu-item-tag">✦ Chef's Pick · tap for recipe</span>
-          <div class="menu-expand">
-            <span class="expand-section-label">Ingredients</span>
-            <ul class="expand-ingredients">
-              <li>1 cup whole milk or oat milk</li>
-              <li>2 tbsp good dark cocoa powder</li>
-              <li>1 tsp white miso paste</li>
-              <li>1 tsp maple syrup or sugar</li>
-              <li>Pinch of chili flakes (optional, but try it)</li>
-            </ul>
-            <span class="expand-section-label">How to Make It</span>
-            <ol class="expand-steps">
-              <li><span class="expand-step-num">01</span><span>Whisk cocoa, miso, and sweetener with 2 tbsp warm milk into a paste.</span></li>
-              <li><span class="expand-step-num">02</span><span>Heat remaining milk until just steaming.</span></li>
-              <li><span class="expand-step-num">03</span><span>Pour hot milk into the paste, whisk until smooth.</span></li>
-              <li><span class="expand-step-num">04</span><span>Top with chili flakes. Trust the process. 🍫</span></li>
-            </ol>
-            <div class="expand-quote">"Depth needs contrast. Salt makes sweetness real." — Me3temed</div>
-          </div>
-        </div>
-
-        <div class="menu-item" onclick="toggleMenu(this)">
-          <span class="menu-item-icon">🍊</span>
-          <div class="menu-item-name">Yuzu Brown Butter Milk</div>
-          <div class="menu-item-desc">Citrus-bright and nutty. Sunshine in a cup, even in winter.</div>
-          <span class="menu-item-tag">☀️ Morning Glow · tap for recipe</span>
-          <div class="menu-expand">
-            <span class="expand-section-label">Ingredients</span>
-            <ul class="expand-ingredients">
-              <li>1 cup whole milk</li>
-              <li>1 tsp unsalted butter</li>
-              <li>1 tsp yuzu juice (or lemon + tiny orange zest)</li>
-              <li>½ tsp honey</li>
-              <li>Pinch of vanilla</li>
-            </ul>
-            <span class="expand-section-label">How to Make It</span>
-            <ol class="expand-steps">
-              <li><span class="expand-step-num">01</span><span>Brown butter in a small pan over medium until nutty and golden.</span></li>
-              <li><span class="expand-step-num">02</span><span>Add milk and heat gently. Stir in honey and vanilla.</span></li>
-              <li><span class="expand-step-num">03</span><span>Remove from heat, add yuzu juice. Froth if desired.</span></li>
-              <li><span class="expand-step-num">04</span><span>Pour into a warm mug. Breathe the citrus in first. ☀️</span></li>
-            </ol>
-            <div class="expand-quote">"Some mornings need a little sunshine engineered into them." — Me3temed</div>
-          </div>
-        </div>
-
-        <div class="menu-item" onclick="toggleMenu(this)">
-          <span class="menu-item-icon">🌙</span>
-          <div class="menu-item-name">Moon Milk Blend</div>
-          <div class="menu-item-desc">Ashwagandha, lavender, oat — brewed for quiet and sleep.</div>
-          <span class="menu-item-tag">🌙 Evening Only · tap for recipe</span>
-          <div class="menu-expand">
-            <span class="expand-section-label">Ingredients</span>
-            <ul class="expand-ingredients">
-              <li>1 cup oat milk</li>
-              <li>½ tsp ashwagandha powder</li>
-              <li>¼ tsp dried lavender (or 1 drop food-grade oil)</li>
-              <li>1 tsp honey</li>
-              <li>Pinch of nutmeg</li>
-            </ul>
-            <span class="expand-section-label">How to Make It</span>
-            <ol class="expand-steps">
-              <li><span class="expand-step-num">01</span><span>Warm oat milk over low heat — keep it gentle like the evening.</span></li>
-              <li><span class="expand-step-num">02</span><span>Whisk in ashwagandha, lavender, and honey.</span></li>
-              <li><span class="expand-step-num">03</span><span>Strain through a fine sieve if using dried lavender.</span></li>
-              <li><span class="expand-step-num">04</span><span>Finish with nutmeg. Drink in dim light. Let it work. 🌙</span></li>
-            </ol>
-            <div class="expand-quote">"The night doesn't rush. Neither should you." — Me3temed</div>
-          </div>
-        </div>
-
       </div>
     </div>
   </section>
@@ -1618,5 +1498,173 @@
       document.addEventListener('DOMContentLoaded',function(){ SAKURA_LANG.init(); });
     })();
   </script>
+
+  <!-- ═══ ME3TEMED FLOATING HELPER ═══ -->
+  <style>
+    .m3-helper {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 300;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 10px;
+      pointer-events: none;
+    }
+    .m3-bubble {
+      background: linear-gradient(160deg, #0f1e30, #0c1624);
+      border: 1px solid rgba(80,140,210,0.3);
+      border-radius: 18px 18px 4px 18px;
+      padding: 14px 18px;
+      max-width: 240px;
+      min-width: 160px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+      pointer-events: all;
+      position: relative;
+      opacity: 0;
+      transform: translateY(8px) scale(0.96);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .m3-bubble.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    .m3-bubble-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 13.5px;
+      color: #8ab8d8;
+      line-height: 1.65;
+    }
+    .m3-bubble-close {
+      position: absolute;
+      top: 6px; right: 8px;
+      background: none; border: none;
+      font-size: 11px; color: #2a4a60;
+      cursor: pointer; pointer-events: all;
+      transition: color 0.2s;
+    }
+    .m3-bubble-close:hover { color: #6a9ab8; }
+    .m3-owl-btn {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(160deg, #1a3050, #0f1e30);
+      border: 2px solid rgba(80,140,210,0.35);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.4), 0 0 0 0 rgba(80,140,210,0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px;
+      cursor: pointer;
+      pointer-events: all;
+      transition: transform 0.2s, box-shadow 0.2s;
+      animation: owlPulse 3s ease-in-out infinite;
+    }
+    @keyframes owlPulse {
+      0%, 100% { box-shadow: 0 8px 28px rgba(0,0,0,0.4), 0 0 0 0 rgba(80,140,210,0.25); }
+      50% { box-shadow: 0 8px 28px rgba(0,0,0,0.4), 0 0 0 8px rgba(80,140,210,0); }
+    }
+    .m3-owl-btn:hover { transform: scale(1.1); }
+    .m3-owl-btn.hidden { opacity: 0; pointer-events: none; }
+    .m3-link {
+      display: block;
+      margin-top: 8px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #2a5a7a;
+      text-decoration: none;
+      pointer-events: all;
+      transition: color 0.2s;
+    }
+    .m3-link:hover { color: #6aaad8; }
+    @media (max-width: 500px) {
+      .m3-helper { bottom: 16px; right: 16px; }
+      .m3-bubble { max-width: 200px; }
+    }
+  </style>
+
+  <div class="m3-helper" id="m3-helper">
+    <div class="m3-bubble" id="m3-bubble">
+      <button class="m3-bubble-close" id="m3-close-btn" title="Dismiss">✕</button>
+      <div class="m3-bubble-text" id="m3-bubble-text">"You did enough today. That will always be enough."</div>
+      <a href="me3temed.html" class="m3-link">🌙 Visit my corner →</a>
+    </div>
+    <button class="m3-owl-btn" id="m3-owl-btn" id="m3-toggle-btn" title="Me3temed says...">🦉</button>
+  </div>
+
+  <script>
+    const M3_AFFIRMATIONS = [
+      '"You did enough today. That will always be enough."',
+      '"Rest is not a reward — it is something you were born deserving."',
+      '"The slowest blooming trees make the deepest shade."',
+      '"You are not behind. You are exactly where your story needs you."',
+      '"Tonight, you are allowed to simply exist."',
+      '"The worries can wait. Sleep cannot be postponed forever."',
+      '"Warmth is patience made drinkable — and today, you have earned both."',
+      '"A gentle morning is already on its way to you."',
+      '"You are more than what you produced today."',
+      '"Let the night be kind to you. You've earned kind."',
+      '"Even a single petal can carry the weight of spring."',
+      '"The page doesn't need eloquence. It only needs honesty."',
+      '"Slow mornings grow the strongest roots."',
+      '"Tomorrow has its own warmth waiting — you just can't see it yet."',
+    ];
+
+    let bubbleVisible = false;
+    let currentIdx = Math.floor(Math.random() * M3_AFFIRMATIONS.length);
+    let autoTimer = null;
+
+    function showBubble(idx) {
+      const el = document.getElementById('m3-bubble-text');
+      const bubble = document.getElementById('m3-bubble');
+      el.style.opacity = '0';
+      setTimeout(() => {
+        el.textContent = M3_AFFIRMATIONS[idx];
+        el.style.opacity = '1';
+      }, 250);
+      bubble.classList.add('visible');
+      bubbleVisible = true;
+    }
+
+    function dismissBubble() {
+      document.getElementById('m3-bubble').classList.remove('visible');
+      bubbleVisible = false;
+      clearTimeout(autoTimer);
+    }
+
+    function toggleBubble() {
+      if (bubbleVisible) {
+        currentIdx = (currentIdx + 1) % M3_AFFIRMATIONS.length;
+        showBubble(currentIdx);
+      } else {
+        showBubble(currentIdx);
+      }
+      clearTimeout(autoTimer);
+      autoTimer = setTimeout(nextAffirmation, 8000);
+    }
+
+    function nextAffirmation() {
+      if (!bubbleVisible) return;
+      currentIdx = (currentIdx + 1) % M3_AFFIRMATIONS.length;
+      showBubble(currentIdx);
+      autoTimer = setTimeout(nextAffirmation, 8000);
+    }
+
+    // Auto-show first affirmation after 3 seconds
+    setTimeout(() => {
+      showBubble(currentIdx);
+      autoTimer = setTimeout(nextAffirmation, 8000);
+    }, 3000);
+
+    // Wire up buttons via JS (avoid onclick timing issues)
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('m3-bubble-text').style.transition = 'opacity 0.25s ease';
+      document.getElementById('m3-close-btn').addEventListener('click', dismissBubble);
+      document.getElementById('m3-toggle-btn').addEventListener('click', toggleBubble);
+    });
+  </script>
+
 </body>
 </html>
