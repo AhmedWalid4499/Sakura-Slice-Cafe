@@ -433,7 +433,14 @@
    1. CONTENT  — edit freely. stories, drinks and quotes live here.
    ===================================================================== */
 
+/* autumn (september to november): the pumpkin spice latte and the pumpkins
+   around the café only appear in these months. set to true / false to force it. */
+const AUTUMN = [8, 9, 10].includes(new Date().getMonth());
+
 const DRINKS = [
+  { id: 'pumpkin', em: '🎃', name: 'Pumpkin Spice Latte', season: 'autumn',
+    note: "yuto's favourite. he says it's \"just a seasonal thing\". he has one every single day.",
+    recipe: 'warm a cup of milk with 2 spoons of pumpkin purée, a spoon of honey or brown sugar, and a pinch each of cinnamon, ginger, nutmeg and clove. whisk until smooth, pour over a shot of strong coffee, and dust with cinnamon.' },
   { id: 'cardamom', em: '🥛', name: 'Honey Cardamom Milk', day: 'sunday',
     note: 'for receiving care. warm, slow, a little sweet.',
     recipe: 'warm 1 cup of milk with 2 crushed cardamom pods for 5 minutes. strain, stir in a spoon of honey.' },
@@ -910,7 +917,8 @@ const menuCanvas = document.createElement('canvas'); menuCanvas.width = 256; men
   g.fillStyle = '#2b3a2a'; g.fillRect(0, 0, 256, 160);
   g.fillStyle = '#f4e9d6'; g.font = 'bold 20px Nunito, sans-serif'; g.fillText('today', 18, 30);
   g.font = '14px Nunito, sans-serif';
-  ['honey cardamom milk', 'warm oat milk matcha', 'hojicha + oat milk', 'iced honey vanilla', 'sakura slice ♡'].forEach((t, i) => g.fillText('· ' + t, 18, 56 + i * 20));
+  (AUTUMN ? ['pumpkin spice latte', 'honey cardamom milk', 'warm oat milk matcha', 'hojicha + oat milk', 'sakura slice ♡']
+    : ['honey cardamom milk', 'warm oat milk matcha', 'hojicha + oat milk', 'iced honey vanilla', 'sakura slice ♡']).forEach((t, i) => g.fillText('· ' + t, 18, 56 + i * 20));
 })();
 const menuTex = new THREE.CanvasTexture(menuCanvas);
 mesh(new THREE.PlaneGeometry(1.6, 1.0), new THREE.MeshStandardMaterial({ map: menuTex }), -1.5, 3.05, -5.98, scene, false);
@@ -1087,6 +1095,43 @@ cyl(0.08, 0.12, 1.6, C.trunk, 0, 1.3, 0, tree, 7);
   sphere(r, i % 2 ? C.sakura : '#f6c3d0', x, y, z, tree, 8);
 });
 block(-7.0, -5.8, 4.5, 5.7);
+
+/* ─── autumn pumpkins ─── */
+function pumpkin(x, y, z, r, color = '#e07b2a', rot = 0) {
+  const g = new THREE.Group(); g.position.set(x, y, z); g.rotation.y = rot; scene.add(g);
+  const body = mat(color);
+  sphere(r * 0.8, body, 0, r * 0.62, 0, g, 10).scale.set(1.15, 0.8, 1.15);
+  for (let i = 0; i < 7; i++) {   /* ribs */
+    const a = (i / 7) * Math.PI * 2;
+    const rib = sphere(r * 0.52, body, Math.cos(a) * r * 0.48, r * 0.6, Math.sin(a) * r * 0.48, g, 8);
+    rib.scale.set(0.8, 1.05, 0.8);
+  }
+  const stem = cyl(r * 0.07, r * 0.11, r * 0.4, '#5e4a2a', 0, r * 1.3, 0, g, 6);
+  stem.rotation.z = 0.25;
+  const lf = box(r * 0.45, r * 0.03, r * 0.28, C.palm, r * 0.2, r * 1.18, 0.05, g);
+  lf.rotation.z = -0.3;
+  return g;
+}
+if (AUTUMN) {
+  const ORANGE = '#e07b2a', DEEP = '#c8641c', WHITE = '#efe2c4', GREEN = '#8fa37d';
+  /* entrance: a little pile on each side of the door */
+  pumpkin(-2.5, 0, 5.5, 0.32, ORANGE, 0.3); pumpkin(-2.1, 0, 5.0, 0.2, WHITE, 1); pumpkin(-2.9, 0, 5.1, 0.17, DEEP);
+  pumpkin(2.6, 0, 5.4, 0.36, DEEP, 0.8); pumpkin(2.6, 0.5, 5.4, 0.16, ORANGE); pumpkin(3.1, 0, 5.0, 0.18, GREEN, 2);
+  block(-3.15, -1.85, 4.75, 5.85); block(2.2, 3.35, 4.75, 5.8);
+  /* counter, study bar, me3temed's shelf, mariam's table */
+  pumpkin(-1.6, 1.13, -3.95, 0.11, ORANGE);
+  pumpkin(-1.35, 1.13, -4.1, 0.08, WHITE, 1);
+  pumpkin(-7.5, 1.03, -3.75, 0.1, DEEP);
+  pumpkin(2.4, 1.89, -5.82, 0.07, ORANGE);
+  pumpkin(6.5, 0.81, -4.88, 0.07, WHITE);
+  /* reading nook corner and by the notice board */
+  pumpkin(7.0, 0, 4.6, 0.3, ORANGE, 0.5); pumpkin(7.45, 0, 5.0, 0.2, DEEP); pumpkin(6.75, 0, 5.05, 0.16, WHITE, 2);
+  block(6.5, 7.8, 4.25, 5.35);
+  pumpkin(-7.35, 0, -5.4, 0.24, DEEP, 1); pumpkin(-6.95, 0, -5.55, 0.15, ORANGE);
+  block(-7.7, -6.7, -5.8, -5.05);
+  /* outside the back door */
+  pumpkin(5.6, 0, -6.7, 0.28, ORANGE); pumpkin(3.0, 0, -6.7, 0.22, WHITE, 1);
+}
 
 /* ─── welcome mat + plants at the entrance ─── */
 box(1.6, 0.02, 0.8, C.sage, 0, 0.01, 5.5);
@@ -1603,15 +1648,21 @@ function stampHTML(n) {
   for (let i = 0; i < 10; i++) s += `<div class="stamp ${i < n ? 'got' : ''}">${i < n ? '🌸' : ''}</div>`;
   return s + '</div>';
 }
+/* the autumn special first, then today's drink, then the rest of the week */
+function menuDrinks() {
+  const today = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'][new Date().getDay()];
+  const rank = d => d.season ? 0 : d.day === today ? 1 : 2;
+  return DRINKS.filter(d => !d.season || AUTUMN).sort((a, b) => rank(a) - rank(b));
+}
 function openOrder() {
   const u = Store.user;
   const today = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'][new Date().getDay()];
   const html = `
     <p class="lede">hana looks up from the oven. yuki is already reaching for a cup. "what are we having today?"</p>
     <div class="bento" id="drink-grid">
-      ${[...DRINKS].sort((a, b) => (b.day === today) - (a.day === today)).map(d => `
-        <div class="card drink ${d.day === today ? 'wide' : ''}" data-id="${d.id}" tabindex="0" role="button">
-          <div class="row" style="justify-content:space-between"><span class="em">${d.em}</span>${d.day === today ? '<span class="meta">✨ today\'s drink</span>' : `<span class="meta">${d.day}</span>`}</div>
+      ${menuDrinks().map(d => `
+        <div class="card drink ${d.season || d.day === today ? 'wide' : ''}" data-id="${d.id}" tabindex="0" role="button">
+          <div class="row" style="justify-content:space-between"><span class="em">${d.em}</span>${d.season ? '<span class="meta">🍂 autumn special · yuto\'s favourite</span>' : d.day === today ? '<span class="meta">✨ today\'s drink</span>' : `<span class="meta">${d.day}</span>`}</div>
           <h3>${esc(d.name)}</h3>
           <div class="meta">${esc(d.note)}</div>
         </div>`).join('')}
@@ -1629,7 +1680,7 @@ function openOrder() {
     el.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(); } };
   });
 }
-const drinkColors = { cardamom: '#efe2cc', ginger: '#f3d27a', blueberry: '#8a6fb0', matcha: '#9bb46a', hojicha: '#b58a5e', vanilla: '#e2c49a', strawberry: '#f08aa0' };
+const drinkColors = { pumpkin: '#d9822b', cardamom: '#efe2cc', ginger: '#f3d27a', blueberry: '#8a6fb0', matcha: '#9bb46a', hojicha: '#b58a5e', vanilla: '#e2c49a', strawberry: '#f08aa0' };
 function orderDrink(id) {
   const d = DRINKS.find(x => x.id === id), u = Store.user;
   document.querySelectorAll('.drink').forEach(el => el.classList.toggle('sel', el.dataset.id === id));
@@ -1642,7 +1693,7 @@ function orderDrink(id) {
   }
   save();
   giveCup(drinkColors[id]);
-  const who = Math.random() < 0.5 ? 'yuki' : 'hana';
+  const who = id === 'pumpkin' ? 'yuto, who insists on making this one himself,' : Math.random() < 0.5 ? 'yuki' : 'hana';
   $('#order-result').innerHTML = `
     <div class="card wide">
       <h3>${d.em} one ${esc(d.name.toLowerCase())}, coming up</h3>
@@ -1948,6 +1999,7 @@ function talkYuto() {
     `you came back. that makes me happier than i'm going to admit out loud.`,
     `if you're here to study, the window bar is the quietest. if you're here to not think, the armchairs.`,
     `hana burned the first batch again. don't tell her i told you.`,
+    ...(AUTUMN ? [`have you tried the pumpkin spice latte? it's my favourite. i'm not biased. i'm a little biased.`] : []),
     `whatever today was, it's over now. you're in the café.`
   ];
   const visits = u.stats.visits || 1;
